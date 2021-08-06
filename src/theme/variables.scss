@@ -1,7 +1,9 @@
+// @import 'carbon-components/scss/globals/scss/styles.scss';
 $ui-yellow: #bea67c;
 $ui-white: #ffffff;
 $ui-black: #000000;
 $ui-grey: #888887;
+
 // // basic margin and padding, simple way to change it in all app
 // basic size for many margin, padding, width. Simple way to change evrithing in a mobile version
 //10 px if 1rem = 16px -default value
@@ -12,24 +14,10 @@ $breakpoint-md: 768px; //md
 $breakpoint-sm: 576px; //sm
 $breakpoint-xs: 360px;
 
-
-
-
-
-
-
-
-
-
-
-
-
 @mixin app-text {
   font-family: 'Poxima Nova';
   font-weight: bold;
 
-
-  
   font-size: 15px;
 
   &--weight-normal {

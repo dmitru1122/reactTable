@@ -1,0 +1,16 @@
+@import '../../theme/variables.scss';
+
+.table {
+  &__row {
+    &__cell {
+      cursor: pointer;
+      &--short {
+        cursor: initial;
+        width: 15rem;
+        @media screen and (max-width: $breakpoint-lg) {
+          width: 10rem;
+        }
+      }
+    }
+  }
+}

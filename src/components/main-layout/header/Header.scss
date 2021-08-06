@@ -1,4 +1,13 @@
 @import '../../../theme/variables.scss';
 
 .header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem;
+
+  &__title {
+    font-size: $basic-margin * 3;
+    // background-color: $ui-01;
+  }
 }
