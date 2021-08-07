@@ -1,0 +1,13 @@
+@import '../../theme/variables.scss';
+
+.form {
+  &__submit-btn {
+    background-color: $ui-grey;
+
+    &--disabled {
+      color: rgba(16, 16, 16, 0.3);
+      background-color: rgba(239, 239, 239, 0.3);
+      border-color: rgba(195, 195, 195, 0.3);
+    }
+  }
+}

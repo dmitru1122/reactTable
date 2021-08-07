@@ -1,10 +1,9 @@
-import './HomePage.scss';
-import Table from '../../table/Table';
+import Form from '../../forms/FormRequest';
 
 function Home() {
   return (
     <main className='home'>
-      <Table />
+      <Form />
     </main>
   );
 }

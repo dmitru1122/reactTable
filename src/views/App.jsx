@@ -8,7 +8,7 @@ import '../theme/main.scss';
 
 import Header from '../components/main-layout/header/Header';
 import Footer from '../components/main-layout/footer/Footer';
-import HomePage from '../components/pages/home-page/HomePage';
+import HomePage from '../components/pages/add-request/addNewRequest';
 
 function App() {
   return (
