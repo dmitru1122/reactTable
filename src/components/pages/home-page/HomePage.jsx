@@ -1,11 +1,23 @@
 import './HomePage.scss';
+
+import { Spinner } from 'reactstrap';
+import useGetRequestData from '../../../cusom-hooks/GetListRequests';
 import Table from '../../table/Table';
-import { headerData, rowData } from '../../../fakeDb/sampleData';
 
 function Home() {
+  const listRequests = useGetRequestData();
+
   return (
     <main className='home'>
-      <Table headerData={headerData} rowData={rowData} />
+      {listRequests ? (
+        <Table headerData={listRequests?.headerData} rowData={listRequests?.rowData} />
+      ) : (
+        <div className='d-flex align-items-center justify-content-center'>
+          <Spinner color='dark'>
+            <span className='visually-hidden'>Loading...</span>
+          </Spinner>
+        </div>
+      )}
     </main>
   );
 }

@@ -1,12 +1,15 @@
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col } from 'reactstrap';
-import { fullHeaderData, rowData } from '../../../fakeDb/sampleData';
+import { Container, Row, Col, Spinner } from 'reactstrap';
+// import { fullHeaderData, rowData } from '../../../fakeDb/sampleData';
+import useGetRequestData from '../../../cusom-hooks/GetListRequests';
+
 import ReturnToListButton from '../../buttons/LinkButton';
 import Table from '../../table/Table';
 
 const Request = () => {
+  const listRequests = useGetRequestData();
   const params = useParams();
-  const row = rowData.filter((item) => (item.id === params.id ? item : null));
+  const row = listRequests?.rowData.filter((item) => (item.id === params.id ? item : null));
   return (
     <main className='home'>
       <Container>
@@ -16,8 +19,15 @@ const Request = () => {
           </Col>
         </Row>
       </Container>
-
-      <Table headerData={fullHeaderData} rowData={row} />
+      {listRequests ? (
+        <Table headerData={listRequests?.headerData} rowData={row} />
+      ) : (
+        <div className='d-flex align-items-center justify-content-center'>
+          <Spinner color='dark'>
+            <span className='visually-hidden'>Loading...</span>
+          </Spinner>
+        </div>
+      )}
     </main>
   );
 };

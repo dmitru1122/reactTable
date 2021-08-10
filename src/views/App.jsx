@@ -1,5 +1,7 @@
 import { React, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../redux/store/index';
 import '../theme/main.scss';
 
 import Header from '../components/main-layout/header/Header';
@@ -16,20 +18,22 @@ const AddRequest = lazy(() => import('../components/pages/add-request/AddNewRequ
 function App() {
   return (
     <div className='App'>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Router>
-          <Header />
-          <Switch>
-            <Route exact path='/addRequest/:id' component={AddRequest} />
-            <Route exact path='/editRequest/:id' component={EditRequest} />
-            <Route exact path='/editRequest/:id' component={EditRequest} />
-            <Route exact path='/request/:id' component={Request} />
-            <Route exact path='/' component={HomePage} />
-            <Route component={HomePage} />
-            <Footer />
-          </Switch>
-        </Router>
-      </Suspense>
+      <Provider store={store}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Router>
+            <Header />
+            <Switch>
+              <Route exact path='/addRequest/:id' component={AddRequest} />
+              <Route exact path='/editRequest/:id' component={EditRequest} />
+              <Route exact path='/editRequest/:id' component={EditRequest} />
+              <Route exact path='/request/:id' component={Request} />
+              <Route exact path='/' component={HomePage} />
+              <Route component={HomePage} />
+              <Footer />
+            </Switch>
+          </Router>
+        </Suspense>
+      </Provider>
     </div>
   );
 }
