@@ -4,7 +4,7 @@ import './Header.scss';
 function Header() {
   return (
     <header className='header'>
-      <h1 className='header__title'>Admin pannel</h1>
+      <h1 className='header__title'>Admin panel</h1>
     </header>
   );
 }

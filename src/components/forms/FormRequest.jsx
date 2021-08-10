@@ -1,27 +1,34 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
-import { TextInput, Select, SelectItem, RadioButtonGroup, RadioButton } from 'carbon-components-react';
+import { TextInput, Select, SelectItem, RadioButtonGroup, RadioButton, Button } from 'carbon-components-react';
+import { Container, Row, Col } from 'reactstrap';
 import './FormRequest.scss';
-// import styles from './OtherFinalForumRecord.module.scss';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  title: PropTypes.string,
+};
+const defaultProps = {
+  title: null,
+};
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const onSubmit = async (values, form) => {
-  console.log(values);
-  console.log(form);
   await sleep(300);
   window.alert(JSON.stringify(values, 0, 2));
   form.restart();
 };
 
-export default () => {
+const FormRequest = (props) => {
+  const { title } = props;
   const formData = {};
   const [isValid, setIsValid] = useState(false);
 
   return (
-    <div className='{styles.wrapper}'>
-      <div className='{styles.title}'>React Final Form Example</div>
+    <Container className='form'>
+      {title ? <h2 className='form__title'>{title}</h2> : <></>}
       <Form
         onSubmit={onSubmit}
         initialValues={formData}
@@ -44,107 +51,132 @@ export default () => {
           if (!values.favoriteColor) {
             errors.favoriteColor = 'Required';
           }
-          //   if (!values.confirm) {
-          //     errors.confirm = 'Required';
-          //   } else if (values.confirm !== values.password) {
-          //     errors.confirm = 'Must match';
-          //   }
+
           return errors;
         }}
         render={({ handleSubmit, form, submitting, pristine, values }) => (
-          <form onSubmit={handleSubmit}>
-            <Field name='firstName'>
-              {({ input, meta }) => (
-                <div>
-                  <TextInput
-                    {...input}
-                    required
-                    id='firstName'
-                    invalidText='Input First Name.'
-                    invalid={meta.error && meta.touched}
-                    labelText='First Name'
-                    placeholder='Placeholder text'
-                  />
-                </div>
-              )}
-            </Field>
-            <Field name='lastName'>
-              {({ input, meta }) => (
-                <div>
-                  <TextInput
-                    {...input}
-                    required
-                    invalid={meta.error && meta.touched}
-                    id='test2'
-                    invalidText='Input First Name.'
-                    labelText='Last Name'
-                    placeholder='Placeholder text'
-                  />
-                </div>
-              )}
-            </Field>
-            <label>Gender</label>
-            <Field name='gender'>
-              {({ input, meta }) => (
-                <>
-                  <RadioButtonGroup
-                    {...input}
-                    invalid={meta.error && meta.touched}
-                    invalidText='This is an invalid error message.'
-                    legend='Group Legend'
-                    labelText='Last Name'
-                    valueSelected={values.gender}
-                    name='radio-button-group'>
-                    <RadioButton id='radio-1' labelText='Men' value='men' />
-                    <RadioButton id='radio-2' labelText='Woman' value='woman' />
-                    <RadioButton required id='radio-3' labelText='Hidden' value='hidden' />
-                  </RadioButtonGroup>
-                </>
-              )}
-            </Field>
-            <Field name='favoriteColor'>
-              {({ input, meta }) => (
-                <div>
-                  <Select
-                    {...input}
-                    required
-                    id='select-1'
-                    invalidText='This is an invalid error message.'
-                    invalid={meta.error && meta.touched}
-                    labelText='Select'>
-                    <SelectItem text='Purpose' value='' disabled />
-                    <SelectItem text='Option 1' value='option-1' />
-                    <SelectItem text='Option 2' value='option-2' />
-                    <SelectItem text='Option 3' value='option-3' />
-                  </Select>
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
+          <form onSubmit={handleSubmit} className=''>
+            <Row>
+              <Col className='col-md-12'>
+                <Field name='favoriteColor'>
+                  {({ input, meta }) => (
+                    <div className='form__field'>
+                      <Select
+                        {...input}
+                        required
+                        id='select-1'
+                        invalidText='This is an invalid error message.'
+                        invalid={meta.error && meta.touched}
+                        labelText='Select purpose of the request'>
+                        <SelectItem text='Purpose' value='' disabled />
+                        <SelectItem text='Option 1' value='option-1' />
+                        <SelectItem text='Option 2' value='option-2' />
+                        <SelectItem text='Option 3' value='option-3' />
+                      </Select>
+                      {meta.error && meta.touched && <span>{meta.error}</span>}
+                    </div>
+                  )}
+                </Field>
+              </Col>
+            </Row>
+            <Row>
+              <Field name='firstName'>
+                {({ input, meta }) => (
+                  <Col className='form__field col-sm-6 col-12'>
+                    <TextInput
+                      {...input}
+                      required
+                      className='bx--text-input--lg'
+                      labelText=''
+                      id='firstName'
+                      invalidText='Input First Name.'
+                      invalid={meta.error && meta.touched}
+                      placeholder='First Name'
+                    />
+                  </Col>
+                )}
+              </Field>
+              <Field name='lastName'>
+                {({ input, meta }) => (
+                  <Col className='form__field col-sm-6 col-12'>
+                    <TextInput
+                      {...input}
+                      required
+                      labelText=''
+                      className='bx--text-input--lg'
+                      invalid={meta.error && meta.touched}
+                      id='test2'
+                      invalidText='Input Last Name.'
+                      placeholder='Last Name'
+                    />
+                  </Col>
+                )}
+              </Field>
+            </Row>
+            <Row>
+              <Col>
+                <Field name='gender'>
+                  {({ input, meta }) => (
+                    <div className='form__field'>
+                      <label>Gender</label>
+                      <RadioButtonGroup
+                        {...input}
+                        invalid={meta.error && meta.touched}
+                        invalidText='This is an invalid error message.'
+                        legend='Group Legend'
+                        labelText='Last Name'
+                        valueSelected={values.gender}
+                        name='radio-button-group'>
+                        <RadioButton id='radio-1' labelText='Men' value='men' />
+                        <RadioButton id='radio-2' labelText='Woman' value='woman' />
+                        <RadioButton required id='radio-3' labelText='Hidden' value='hidden' />
+                      </RadioButtonGroup>
+                    </div>
+                  )}
+                </Field>
+              </Col>
+            </Row>
 
-            <div className='{styles.buttons}'>
-              <button type='submit' className={`form__submit-btn ${!isValid ? 'form__submit-btn--disabled' : ''}`}>
-                Submit
-              </button>
-              <button type='button' onClick={form.reset} disabled={submitting || pristine}>
-                Reset
-              </button>
-            </div>
+            <Row className='justify-content-center'>
+              <Col className='d-flex form__field'>
+                <Button
+                  kind={!isValid ? 'danger--tertiary' : 'tertiary'}
+                  type='submit'
+                  className={`form__submit-btn ${!isValid ? 'button--disabled bx--btn--danger--tertiary' : ''}`}>
+                  {!isValid ? 'Disabled' : 'Submit'}
+                </Button>
+              </Col>
+              <Col className='d-flex form__field'>
+                <Button
+                  kind={submitting || pristine ? 'danger--tertiary' : 'tertiary'}
+                  disabled={submitting || pristine}
+                  className={`form__reset-btn ${
+                    submitting || pristine ? 'button--disabled bx--btn--danger--tertiary' : ''
+                  }`}
+                  onClick={form.reset}
+                  type='button'>
+                  Reset
+                </Button>
+              </Col>
+              {/* <Col>
+                  <button type='button' onClick={form.reset} disabled={submitting || pristine}>
+                    Reset
+                  </button>
+                </Col> */}
+            </Row>
             <pre>{JSON.stringify(values, 0, 2)}</pre>
           </form>
         )}
       />
-    </div>
+    </Container>
   );
 };
-<Field name='toppings' component='select' multiple>
-  <option value='chicken'>🐓 Chicken</option>
-  <option value='ham'>🐷 Ham</option>
-  <option value='mushrooms'>🍄 Mushrooms</option>
-  <option value='cheese'>🧀 Cheese</option>
-  <option value='tuna'>🐟 Tuna</option>
-  <option value='pineapple'>🍍 Pineapple</option>
-</Field>;
+
+FormRequest.propTypes = propTypes;
+FormRequest.defaultProps = defaultProps;
+
+export default FormRequest;
+
 // export default FormRequest;
 
 // import React from 'react';
