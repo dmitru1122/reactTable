@@ -8,12 +8,12 @@ function useGetRequestData() {
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
   useEffect(() => {
-    if (requestsData.headerData) {
+    if (requestsData?.headerData) {
       setData(requestsData);
     } else {
       dispatch({ type: actionTypes.LOAD_DATA });
     }
-  }, [lastUpdate]);
+  }, [lastUpdate, requestsData]);
 
   return data;
 }

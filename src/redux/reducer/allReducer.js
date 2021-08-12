@@ -4,6 +4,8 @@ export const exampleInitialState = {
   error: null,
   lastUpdate: 0,
   requestData: { headerData: null, rowData: null },
+  deleteRequestStatus: 'waiting',
+  fullRequestInfo: {},
   placeholderData: null,
   sendDataSuccess: null,
 };
@@ -24,6 +26,32 @@ const reducer = (state = exampleInitialState, action) => {
         ...state,
         ...{ requestData: action.data },
         ...{ lastUpdate: state.lastUpdate + 1 },
+      };
+
+    case actionTypes.LOAD_ONE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        fullRequestInfo: { ...state.fullRequestInfo, [action.id]: action.data },
+      };
+    case actionTypes.DELETE_ONE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        requestData: {
+          ...state.requestData,
+          deleteRequestStatus: 'resolve',
+          rowData: [...state.requestData.rowData.filter((item) => (+item.id !== +action.id ? item : null))],
+        },
+      };
+    case actionTypes.DELETE_ONE_REQUEST_FAIL:
+      console.log('sdfsdf');
+      return {
+        ...state,
+        ...{ deleteRequestStatus: 'reject' },
+      };
+    case actionTypes.DELETE_ONE_REQUEST_RESET:
+      return {
+        ...state,
+        ...{ deleteRequestStatus: 'waiting' },
       };
     case actionTypes.SEND_DATA_SUCCESS:
       return {

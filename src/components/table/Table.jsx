@@ -2,6 +2,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Table.scss';
 import { Spinner } from 'reactstrap';
+// import { useEffect } from 'react';
 import {
   DataTable,
   TableToolbar,
@@ -17,7 +18,7 @@ import {
   Button,
 } from 'carbon-components-react';
 import { Delete16 as Delete, Edit32 as Edit, Add32 as Add } from '@carbon/icons-react';
-// import { headerData, rowData } from './sampleData';
+import useDeleteRequest from '../../cusom-hooks/DeleteRequest';
 
 const propTypes = {
   headerData: PropTypes.arrayOf(PropTypes.shape({ key: PropTypes.string, header: PropTypes.string })),
@@ -38,8 +39,8 @@ const defaultProps = {
 
 function TableRequests(props) {
   const { rowData, headerData } = props;
-  console.log(headerData);
-  console.log(rowData);
+  const { status, setId } = useDeleteRequest();
+  // const dispatch = useDispatch();
   const history = useHistory();
 
   const handleClickEdit = (routerName, id) => {
@@ -49,6 +50,16 @@ function TableRequests(props) {
   const openFullRequestInfo = (id) => {
     history.push(`/request/${id}`);
   };
+  const handleDeleteRow = (id) => {
+    console.log(status);
+
+    setId(id);
+
+    // dispatch({ type: actionTypes.DELETE_ONE_REQUEST, id });
+  };
+  // useEffect(() => {
+  //   console.log(status);
+  // }, [status]);
   return (
     <div className='table'>
       <DataTable rows={rowData} headers={headerData} isSortable>
@@ -94,6 +105,7 @@ function TableRequests(props) {
                         tooltipPosition='bottom'
                         iconDescription='Delete row'
                         kind='ghost'
+                        onClick={() => handleDeleteRow(row.id)}
                       />
                       <Button
                         hasIconOnly

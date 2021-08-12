@@ -1,47 +1,4 @@
-export const rowData = [
-  {
-    id: '1',
-    purpose: 'Load Balancer 3',
-    firstName: 'Dima',
-    lastName: 'vab',
-    gender: 'Round robin',
-  },
-  {
-    id: '2',
-    purpose: 'Load Balancer 1',
-    firstName: 'Kate',
-    lastName: 'Ro',
-    gender: 'Round robin',
-  },
-  {
-    id: '3',
-    purpose: 'Load Balancer 2',
-    firstName: 'Tan',
-    lastName: 'Solom',
-    gender: 'DNS delegation',
-  },
-  {
-    id: '4',
-    purpose: 'Load Balancer 6',
-    firstName: 'Vitia',
-    lastName: 'Vab',
-    gender: 'Round robin',
-  },
-  {
-    id: '5',
-    purpose: 'Load Balancer 4',
-    firstName: 'Inna',
-    lastName: 'Moroz',
-    gender: 'Round robin',
-  },
-  {
-    id: '6',
-    purpose: 'Load Balancer 5',
-    firstName: 'James',
-    lastName: 'Slowak',
-    gender: 'DNS delegation',
-  },
-];
+import fakeDB from './db.json';
 
 export const headerData = [
   {
@@ -72,3 +29,38 @@ export const fullHeaderData = [
     header: 'Purpose',
   },
 ];
+function filter(data, checkCompare) {
+  const interalArray = [];
+  let internalObject = {};
+
+  data.forEach((item) => {
+    checkCompare.forEach((checkVal) => {
+      internalObject[checkVal.key] = item[checkVal.key];
+    });
+    internalObject.id = item.id;
+    interalArray.push(internalObject);
+    internalObject = {};
+  });
+  return interalArray;
+}
+export const getDBFull = () => {
+  const resultWithFilter = filter(fakeDB, headerData);
+  return { rowData: resultWithFilter, headerData };
+};
+
+function returnOne(data, id) {
+  const internalArr = data.filter((item) => (+item.id === +id ? item : null));
+  return internalArr;
+}
+
+export const getOne = (id) => {
+  const result = returnOne(fakeDB, id);
+  return { rowData: result, headerData: fullHeaderData };
+};
+
+// function deleteItem(dataBase, id) {}
+
+export const deleteOne = () => {
+  // const result = deleteItem(fakeDB, id);
+  return true;
+};
