@@ -2,7 +2,8 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Table.scss';
 import { Spinner } from 'reactstrap';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   DataTable,
   TableToolbar,
@@ -18,7 +19,8 @@ import {
   Button,
 } from 'carbon-components-react';
 import { Delete16 as Delete, Edit32 as Edit, Add32 as Add } from '@carbon/icons-react';
-import useDeleteRequest from '../../cusom-hooks/DeleteRequest';
+// import { watchDeleteStatus } from '../../cusom-hooks/DeleteRequest';
+import { deleteOneRequest, deleteOneRequestReset } from '../../redux/actions/index';
 
 const propTypes = {
   headerData: PropTypes.arrayOf(PropTypes.shape({ key: PropTypes.string, header: PropTypes.string })),
@@ -39,9 +41,9 @@ const defaultProps = {
 
 function TableRequests(props) {
   const { rowData, headerData } = props;
-  const { status, setId } = useDeleteRequest();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const history = useHistory();
+  const status = useSelector((state) => state.deleteRequestStatus);
 
   const handleClickEdit = (routerName, id) => {
     history.push(`/${routerName}/${id}`);
@@ -51,15 +53,14 @@ function TableRequests(props) {
     history.push(`/request/${id}`);
   };
   const handleDeleteRow = (id) => {
-    console.log(status);
-
-    setId(id);
-
-    // dispatch({ type: actionTypes.DELETE_ONE_REQUEST, id });
+    dispatch(deleteOneRequest(id));
   };
-  // useEffect(() => {
-  //   console.log(status);
-  // }, [status]);
+  useEffect(() => {
+    if (status !== 'waiting') {
+      setTimeout(() => dispatch(deleteOneRequestReset()), 3000);
+    }
+    console.log(status);
+  }, [status]);
   return (
     <div className='table'>
       <DataTable rows={rowData} headers={headerData} isSortable>
