@@ -64,3 +64,17 @@ export const deleteOne = () => {
   // const result = deleteItem(fakeDB, id);
   return true;
 };
+
+export function editOne(data, id) {
+  // const resArr = [...fakeDB];
+  const resArr = fakeDB.map((item) => (+item.id === +id ? data : item));
+  console.log(data);
+  console.log(id);
+  return resArr;
+}
+
+export function addOne(data) {
+  const internalData = { ...data, id: fakeDB.length };
+  const resArr = fakeDB.push(internalData);
+  return { resArr };
+}

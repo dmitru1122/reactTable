@@ -19,17 +19,22 @@ export function loadDataSuccess(data, id) {
   };
 }
 
-export function sendData(data) {
+export function addOneRequest(data) {
   return {
-    type: actionTypes.SEND_DATA,
+    type: actionTypes.ADD_ONE_REQUEST,
     data,
   };
 }
 
-export function sendDataSuccess(data) {
+export function addOneRequestSuccess(data) {
   return {
-    type: actionTypes.SEND_DATA_SUCCESS,
+    type: actionTypes.ADD_ONE_REQUEST_SUCCESS,
     data,
+  };
+}
+export function addOneRequestFail() {
+  return {
+    type: actionTypes.ADD_ONE_REQUEST_FAIL,
   };
 }
 
@@ -57,4 +62,14 @@ export function deleteOneRequestSuccess(id) {
 }
 export function deleteOneRequestFail() {
   return { type: actionTypes.DELETE_ONE_REQUEST_FAIL };
+}
+
+export function editOneRequest(data, id) {
+  return { type: actionTypes.EDIT_ONE_REQUEST, data, id };
+}
+export function editOneRequestSuccess(data, id) {
+  return { type: actionTypes.EDIT_ONE_REQUEST_SUCCESS, data, id };
+}
+export function editOneRequestFail() {
+  return { type: actionTypes.EDIT_ONE_REQUEST_FAIL };
 }

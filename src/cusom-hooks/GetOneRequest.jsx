@@ -8,7 +8,6 @@ function useGetOneRequest(id) {
   const [data, setData] = useState(null);
   useEffect(() => {
     if (requestsData[id]) {
-      // console.log(requestsData[id]);
       setData(requestsData[id]);
     } else {
       dispatch({ type: actionTypes.LOAD_ONE_REQUEST, id });

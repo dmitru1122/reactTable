@@ -1,8 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Table.scss';
-import { Spinner } from 'reactstrap';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   DataTable,
@@ -18,9 +17,17 @@ import {
   TableCell,
   Button,
 } from 'carbon-components-react';
-import { Delete16 as Delete, Edit32 as Edit, Add32 as Add } from '@carbon/icons-react';
-// import { watchDeleteStatus } from '../../cusom-hooks/DeleteRequest';
+import { Edit32 as Edit, Add32 as Add } from '@carbon/icons-react';
 import { deleteOneRequest, deleteOneRequestReset } from '../../redux/actions/index';
+import Confirm from '../modal/Confirm';
+
+const SpinnerCS = () => {
+  return (
+    <div className='spinner-border text-primary' role='status'>
+      <span className='visually-hidden'>Loading...</span>
+    </div>
+  );
+};
 
 const propTypes = {
   headerData: PropTypes.arrayOf(PropTypes.shape({ key: PropTypes.string, header: PropTypes.string })),
@@ -40,26 +47,30 @@ const defaultProps = {
 };
 
 function TableRequests(props) {
-  const { rowData, headerData } = props;
   const dispatch = useDispatch();
   const history = useHistory();
+  const { rowData, headerData } = props;
+  const [deleting, setDeleting] = useState({ status: false, id: 0 });
   const status = useSelector((state) => state.deleteRequestStatus);
 
   const handleClickEdit = (routerName, id) => {
     history.push(`/${routerName}/${id}`);
   };
-
   const openFullRequestInfo = (id) => {
     history.push(`/request/${id}`);
   };
   const handleDeleteRow = (id) => {
+    setDeleting({ status: true, id });
     dispatch(deleteOneRequest(id));
   };
   useEffect(() => {
+    const reset = () => {
+      dispatch(deleteOneRequestReset());
+      setDeleting({ status: false, id: 0 });
+    };
     if (status !== 'waiting') {
-      setTimeout(() => dispatch(deleteOneRequestReset()), 3000);
+      setTimeout(reset, 1000);
     }
-    console.log(status);
   }, [status]);
   return (
     <div className='table'>
@@ -92,35 +103,48 @@ function TableRequests(props) {
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <TableRow key={row.id} className='table__row__cell'>
-                    {row.cells.map((cell) => (
-                      <TableCell key={cell.id} onClick={() => openFullRequestInfo(row.id)}>
-                        {cell.value}
-                      </TableCell>
-                    ))}
-                    <TableCell className='table__row__cell--short'>
-                      <Button
-                        hasIconOnly
-                        renderIcon={Delete}
-                        tooltipAlignment='center'
-                        tooltipPosition='bottom'
-                        iconDescription='Delete row'
-                        kind='ghost'
-                        onClick={() => handleDeleteRow(row.id)}
-                      />
-                      <Button
-                        hasIconOnly
-                        renderIcon={Edit}
-                        onClick={() => handleClickEdit('editRequest', row.id)}
-                        tooltipAlignment='center'
-                        tooltipPosition='bottom'
-                        iconDescription='Edit row'
-                        kind='ghost'
-                      />
-                      <Spinner color='dark' className='visually-hidden'>
-                        <span className='visually-hidden'>Loading...</span>
-                      </Spinner>
-                    </TableCell>
+                  <TableRow key={row.id} className='table__row'>
+                    {deleting.status && deleting.id === row.id ? (
+                      <td id='spin' className='table__row__cell--spinner' colSpan={row.cells.length + 1}>
+                        <SpinnerCS />
+                      </td>
+                    ) : (
+                      <>
+                        {row.cells.map((cell) => (
+                          <TableCell key={cell.id} onClick={() => openFullRequestInfo(row.id)}>
+                            {cell.value}
+                          </TableCell>
+                        ))}
+                        <TableCell className='table__row__cell--short'>
+                          {/* <Button
+                            hasIconOnly
+                            renderIcon={Delete}
+                            tooltipAlignment='center'
+                            tooltipPosition='bottom'
+                            iconDescription='Delete row'
+                            kind='ghost'
+                            onClick={() => handleDeleteRow(row.id)}
+                          /> */}
+                          <Confirm
+                            type='delete'
+                            title='Delete'
+                            buttonLabel='I have a component'
+                            description='hi'
+                            action='Delete'
+                            continueAction={() => handleDeleteRow(row.id)}
+                          />
+                          <Button
+                            hasIconOnly
+                            renderIcon={Edit}
+                            onClick={() => handleClickEdit('editRequest', row.id)}
+                            tooltipAlignment='center'
+                            tooltipPosition='bottom'
+                            iconDescription='Edit row'
+                            kind='ghost'
+                          />
+                        </TableCell>
+                      </>
+                    )}
                   </TableRow>
                 ))}
               </TableBody>

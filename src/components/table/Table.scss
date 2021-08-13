@@ -1,14 +1,18 @@
 @import '../../theme/variables.scss';
-
 .table {
-  &__row {
-    &__cell {
+  .table {
+    &__row {
       cursor: pointer;
-      &--short {
-        cursor: initial;
-        width: 15rem;
-        @media screen and (max-width: $breakpoint-lg) {
-          width: 10rem;
+      &__cell {
+        &--spinner {
+          text-align: center !important;
+        }
+        &--short {
+          cursor: initial;
+          width: 15rem;
+          @media screen and (max-width: $breakpoint-lg) {
+            width: 10rem;
+          }
         }
       }
     }
