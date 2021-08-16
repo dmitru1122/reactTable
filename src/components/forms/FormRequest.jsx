@@ -32,8 +32,7 @@ const FormRequest = (props) => {
 
   const onSubmit = async (values, form) => {
     await sleep(300);
-    action(values);
-    form.restart();
+    action(values, form);
   };
 
   return (

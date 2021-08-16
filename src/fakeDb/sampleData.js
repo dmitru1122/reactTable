@@ -29,52 +29,63 @@ export const fullHeaderData = [
     header: 'Purpose',
   },
 ];
-function filter(data, checkCompare) {
-  const interalArray = [];
-  let internalObject = {};
-
-  data.forEach((item) => {
-    checkCompare.forEach((checkVal) => {
-      internalObject[checkVal.key] = item[checkVal.key];
-    });
-    internalObject.id = item.id;
-    interalArray.push(internalObject);
-    internalObject = {};
-  });
-  return interalArray;
+export function createLoacalStorage() {
+  let check = localStorage.getItem('rowData') ? null : localStorage.setItem('rowData', JSON.stringify(fakeDB));
+  check = localStorage.getItem('headerData') ? null : localStorage.setItem('headerData', JSON.stringify(headerData));
+  check = localStorage.getItem('fullHeader')
+    ? null
+    : localStorage.setItem('fullHeader', JSON.stringify(fullHeaderData));
+  return check;
 }
-export const getDBFull = () => {
-  const resultWithFilter = filter(fakeDB, headerData);
-  return { rowData: resultWithFilter, headerData };
-};
+// function filter(data, checkCompare) {
+//   const interalArray = [];
+//   let internalObject = {};
 
-function returnOne(data, id) {
-  const internalArr = data.filter((item) => (+item.id === +id ? item : null));
-  return internalArr;
-}
+//   data.forEach((item) => {
+//     checkCompare.forEach((checkVal) => {
+//       internalObject[checkVal.key] = item[checkVal.key];
+//     });
+//     internalObject.id = item.id;
+//     interalArray.push(internalObject);
+//     internalObject = {};
+//   });
+//   return interalArray;
+// }
+// export const getDBFull = () => {
+//   const resultWithFilter = filter(fakeDB, headerData);
+//   return { rowData: resultWithFilter, headerData };
+// };
 
-export const getOne = (id) => {
-  const result = returnOne(fakeDB, id);
-  return { rowData: result, headerData: fullHeaderData };
-};
+// function returnOne(data, id) {
+//   const internalArr = data.filter((item) => (+item.id === +id ? item : null));
+//   return internalArr;
+// }
 
-// function deleteItem(dataBase, id) {}
+// export const getOne = (id) => {
+//   const result = returnOne(fakeDB, id);
+//   return { rowData: result, headerData: fullHeaderData };
+// };
 
-export const deleteOne = () => {
-  // const result = deleteItem(fakeDB, id);
-  return true;
-};
+// // function deleteItem(dataBase, id) {}
 
-export function editOne(data, id) {
-  // const resArr = [...fakeDB];
-  const resArr = fakeDB.map((item) => (+item.id === +id ? data : item));
-  console.log(data);
-  console.log(id);
-  return resArr;
-}
+// export const deleteOne = () => {
+//   // const result = deleteItem(fakeDB, id);
+//   return true;
+// };
 
-export function addOne(data) {
-  const internalData = { ...data, id: fakeDB.length };
-  const resArr = fakeDB.push(internalData);
-  return { resArr };
-}
+// export function editOne(data, id) {
+//   // const resArr = [...fakeDB];
+//   const resArr = fakeDB.map((item) => (+item.id === +id ? data : item));
+//   console.log(data);
+//   console.log(id);
+//   return resArr;
+// }
+
+// export function addOne(data) {
+//   const internalData = { ...data, id: fakeDB.length };
+//   const resArr = JSON.parse(localStorage.rowData);
+//   resArr.push(internalData);
+//   console.log(resArr);
+//   localStorage.setItem('rowData', JSON.stringify(resArr));
+//   return { resArr };
+// }

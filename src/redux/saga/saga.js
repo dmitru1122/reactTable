@@ -7,22 +7,28 @@ import {
   loadOneRequestSuccess,
   deleteOneRequestSuccess,
   deleteOneRequestFail,
-  editOneRequestSuccess,
+  // editOneRequestSuccess,
   editOneRequestFail,
-  addOneRequestSuccess,
+  // addOneRequestSuccess,
   addOneRequestFail,
 } from '../actions/index';
 import actionTypes from '../actions/actionTypes';
 // fake
-import { getDBFull, getOne, addOne, deleteOne, editOne } from '../../fakeDb/sampleData';
+import { getDBFull, getOne, addOne, deleteOne, editOne } from './methods';
 // fake
+
+function* reloadDB() {
+  const data = yield getDBFull();
+  yield put(loadDataSuccess(data));
+}
 
 function* loadDataSaga() {
   try {
     // const { status, data } = yield call(fetch('https://simple-blog-api.crew.red/posts'));
     yield delay(2000);
-    const data = getDBFull();
-    yield put(loadDataSuccess(data));
+    yield reloadDB();
+    // const data = yield getDBFull();
+    // yield put(loadDataSuccess());
     // }
   } catch (err) {
     yield put(failure(err));
@@ -32,11 +38,9 @@ function* loadDataSaga() {
 function* loadOneRequest(params) {
   const { id } = params;
   try {
-    // const { status, data } = yield call(fetch('https://simple-blog-api.crew.red/posts'));
     yield delay(2000);
     const data = getOne(id);
     yield put(loadOneRequestSuccess(data, id));
-    // }
   } catch (err) {
     yield put(failure(err));
   }
@@ -45,16 +49,8 @@ function* loadOneRequest(params) {
 function* addOneRequest(form) {
   const { data } = form;
   try {
-    // const { status } = yield fetch(`https://simple-blog-api.crew.red/posts`, {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   body: JSON.stringify(form.data),
-    // });
-    // if (status === 201) {
-    //   yield put(sendDataSuccess(true));
-    // }
-    const { dataRes } = addOne(data);
-    yield put(addOneRequestSuccess(dataRes));
+    yield addOne(data);
+    yield reloadDB();
   } catch (error) {
     yield put(addOneRequestFail(false));
   }
@@ -63,11 +59,10 @@ function* addOneRequest(form) {
 function* deleteOneRequest(params) {
   const { id } = params;
   try {
-    // const { status, data } = yield call(fetch('https://simple-blog-api.crew.red/posts'));
     yield delay(1000);
-    // yield fetch(`https://simple-blog-apisdfsdf.crew.red/posts`);
     deleteOne(id);
-    yield put(deleteOneRequestSuccess(id));
+    yield reloadDB();
+    yield put(deleteOneRequestSuccess());
     // }
   } catch (err) {
     // console.error(err);
@@ -77,12 +72,12 @@ function* deleteOneRequest(params) {
 function* editOneRequest(params) {
   const { data, id } = params;
   try {
-    // const { status, data } = yield call(fetch('https://simple-blog-api.crew.red/posts'));
     yield delay(1000);
-    // yield fetch(`https://simple-blog-apisdfsdf.crew.red/posts`);
-    const resData = editOne(data, id);
-    yield put(editOneRequestSuccess(resData, id));
-    // }
+    yield editOne(data, id);
+    // reload fullRequestInfo, without this action after edit we have old data in redux
+    const dataResponse = getOne(id);
+    yield put(loadOneRequestSuccess(dataResponse, id));
+    yield reloadDB();
   } catch (err) {
     console.error(err);
     yield put(editOneRequestFail());

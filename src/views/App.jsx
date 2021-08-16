@@ -10,12 +10,14 @@ import HomePage from '../components/pages/home-page/HomePage';
 // import AddRequest from '../components/pages/add-request/AddNewRequest';
 // import EditRequest from '../components/pages/edit-request/EditRequest';
 // import Request from '../components/pages/request/Request';
+import { createLoacalStorage } from '../fakeDb/sampleData';
 
 const Request = lazy(() => import('../components/pages/request/Request'));
 const EditRequest = lazy(() => import('../components/pages/edit-request/EditRequest'));
 const AddRequest = lazy(() => import('../components/pages/add-request/AddNewRequest'));
 
 function App() {
+  createLoacalStorage();
   return (
     <div className='App'>
       <Provider store={store}>
