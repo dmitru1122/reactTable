@@ -15,35 +15,27 @@ import {
   TableHeader,
   TableBody,
   TableCell,
-  Button,
 } from 'carbon-components-react';
-import { Edit32 as Edit, Add32 as Add } from '@carbon/icons-react';
 import { deleteOneRequest, deleteOneRequestReset } from '../../redux/actions/index';
-import Confirm from '../modal/Confirm';
-
-const SpinnerCS = () => {
-  return (
-    <div className='spinner-border text-primary' role='status'>
-      <span className='visually-hidden'>Loading...</span>
-    </div>
-  );
-};
+import Modal from '../modal/Modal';
+import SpinnerCS from '../spinner-cs/Spinner';
 
 const propTypes = {
   headerData: PropTypes.arrayOf(PropTypes.shape({ key: PropTypes.string, header: PropTypes.string })),
   rowData: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
-      name: PropTypes.string,
-      protocol: PropTypes.string,
-      port: PropTypes.number,
-      rule: PropTypes.string,
+      firstName: PropTypes.string,
+      purpose: PropTypes.string,
     }),
   ),
 };
 const defaultProps = {
-  headerData: [{ key: 'name', header: 'Name' }],
-  rowData: [{ id: '', name: '', protocol: '', port: 0, rule: '' }],
+  headerData: [
+    { key: 'purpose', header: 'Purpose' },
+    { key: 'firstName', header: 'First Name' },
+  ],
+  rowData: [{ id: '', firstName: '', purpose: '' }],
 };
 
 function TableRequests(props) {
@@ -53,13 +45,10 @@ function TableRequests(props) {
   const [deleting, setDeleting] = useState({ status: false, id: 0 });
   const status = useSelector((state) => state.deleteRequestStatus);
 
-  const handleClickEdit = (routerName, id) => {
-    history.push(`/${routerName}/${id}`);
-  };
   const openFullRequestInfo = (id) => {
     history.push(`/request/${id}`);
   };
-  const handleDeleteRow = (id) => {
+  const handleClickDelete = (id) => {
     setDeleting({ status: true, id });
     dispatch(deleteOneRequest(id));
   };
@@ -83,13 +72,20 @@ function TableRequests(props) {
                   tabIndex={getBatchActionProps().shouldShowBatchActions ? -1 : 0}
                   onChange={onInputChange}
                 />
-                <Button
+                {/* <Button
                   tabIndex={getBatchActionProps().shouldShowBatchActions ? -1 : 0}
                   onClick={() => handleClickEdit('addRequest', '0')}
                   renderIcon={Add}
                   kind='primary'>
                   Add new
-                </Button>
+                </Button> */}
+                <Modal
+                  type='add'
+                  title='Add request'
+                  buttonLabel='I have a component'
+                  description='hi'
+                  action='Delete'
+                />
               </TableToolbarContent>
             </TableToolbar>
             <Table {...getTableProps()}>
@@ -116,32 +112,16 @@ function TableRequests(props) {
                           </TableCell>
                         ))}
                         <TableCell className='table__row__cell--short'>
-                          {/* <Button
-                            hasIconOnly
-                            renderIcon={Delete}
-                            tooltipAlignment='center'
-                            tooltipPosition='bottom'
-                            iconDescription='Delete row'
-                            kind='ghost'
-                            onClick={() => handleDeleteRow(row.id)}
-                          /> */}
-                          <Confirm
+                          <Modal
                             type='delete'
                             title='Delete'
                             buttonLabel='I have a component'
-                            description='hi'
+                            description='Are you sure you want to go on?'
                             action='Delete'
-                            continueAction={() => handleDeleteRow(row.id)}
+                            continueAction={() => handleClickDelete(row.id)}
                           />
-                          <Button
-                            hasIconOnly
-                            renderIcon={Edit}
-                            onClick={() => handleClickEdit('editRequest', row.id)}
-                            tooltipAlignment='center'
-                            tooltipPosition='bottom'
-                            iconDescription='Edit row'
-                            kind='ghost'
-                          />
+
+                          <Modal type='edit' title='Edit row' action='Delete' id={row.id} />
                         </TableCell>
                       </>
                     )}

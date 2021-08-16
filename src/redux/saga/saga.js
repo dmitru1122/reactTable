@@ -52,6 +52,7 @@ function* addOneRequest(form) {
     yield addOne(data);
     yield reloadDB();
   } catch (error) {
+    console.error(error);
     yield put(addOneRequestFail(false));
   }
 }
@@ -79,7 +80,6 @@ function* editOneRequest(params) {
     yield put(loadOneRequestSuccess(dataResponse, id));
     yield reloadDB();
   } catch (err) {
-    console.error(err);
     yield put(editOneRequestFail());
   }
 }

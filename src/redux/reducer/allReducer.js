@@ -54,7 +54,6 @@ const reducer = (state = exampleInitialState, action) => {
         },
       };
     case actionTypes.DELETE_ONE_REQUEST_FAIL:
-      console.log('sdfsdf');
       return {
         ...state,
         ...{ deleteRequestStatus: 'reject' },
@@ -65,7 +64,6 @@ const reducer = (state = exampleInitialState, action) => {
         ...{ deleteRequestStatus: 'waiting' },
       };
     case actionTypes.EDIT_ONE_REQUEST_SUCCESS: {
-      console.log(action.data);
       return {
         ...state,
         // ...{ requestData: action.data },

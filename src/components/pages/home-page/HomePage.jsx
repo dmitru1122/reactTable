@@ -1,8 +1,7 @@
 import './HomePage.scss';
-
-// import { Spinner } from 'reactstrap';
 import useGetRequestData from '../../../cusom-hooks/GetListRequests';
 import Table from '../../table/Table';
+import SpinnerCs from '../../spinner-cs/Spinner';
 
 function Home() {
   const listRequests = useGetRequestData();
@@ -13,9 +12,10 @@ function Home() {
         <Table headerData={listRequests?.headerData} rowData={listRequests?.rowData} />
       ) : (
         <div className='d-flex align-items-center justify-content-center'>
-          <div className='spinner-border text-primary' role='status'>
+          <SpinnerCs />
+          {/* <div className='spinner-border text-primary' role='status'>
             <span className='visually-hidden'>Loading...</span>
-          </div>
+          </div> */}
         </div>
       )}
     </main>

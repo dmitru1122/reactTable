@@ -73,9 +73,9 @@ export function editOne(data, id) {
 }
 
 export function addOne(data) {
-  const internalData = { ...data, id: (+rowData()[rowData().length - 1].id + +1).toString() };
+  const lastIdNumber = rowData().length > 0 ? +rowData()[rowData().length - 1]?.id : 1;
+  const internalData = { ...data, id: (+lastIdNumber + +1).toString() };
   const resArr = JSON.parse(localStorage.rowData);
   resArr.push(internalData);
   localStorage.setItem('rowData', JSON.stringify(resArr));
-  //   return { resArr };
 }
