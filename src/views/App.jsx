@@ -7,8 +7,6 @@ import '../theme/main.scss';
 import Header from '../components/main-layout/header/Header';
 import Footer from '../components/main-layout/footer/Footer';
 import HomePage from '../components/pages/home-page/HomePage';
-import AddRequest from '../components/pages/add-request/AddNewRequest';
-import EditRequest from '../components/pages/edit-request/EditRequest';
 import Request from '../components/pages/request/Request';
 import { createLoacalStorage } from '../fakeDb/connect';
 
@@ -20,9 +18,6 @@ function App() {
         <Router>
           <Header />
           <Switch>
-            <Route exact path='/addRequest/:id' component={AddRequest} />
-            <Route exact path='/editRequest/:id' component={EditRequest} />
-            <Route exact path='/editRequest/:id' component={EditRequest} />
             <Route exact path='/request/:id' component={Request} />
             <Route exact path='/' component={HomePage} />
             <Route component={HomePage} />

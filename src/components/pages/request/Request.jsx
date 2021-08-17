@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Spinner } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
+import SpinnerCs from '../../spinner-cs/Spinner';
 // import { fullHeaderData, rowData } from '../../../fakeDb/sampleData';
 import useGetOneRequest from '../../../cusom-hooks/GetOneRequest';
 
@@ -22,9 +23,7 @@ const Request = () => {
         <Table headerData={listRequests?.headerData} rowData={listRequests.rowData} />
       ) : (
         <div className='d-flex align-items-center justify-content-center'>
-          <Spinner color='dark'>
-            <span className='visually-hidden'>Loading...</span>
-          </Spinner>
+          <SpinnerCs />
         </div>
       )}
     </main>

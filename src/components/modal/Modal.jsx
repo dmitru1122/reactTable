@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Buttons from '../buttons/Buttons';
-
-import EditRequest from '../pages/edit-request/EditRequest';
-import AddRequest from '../pages/add-request/AddNewRequest';
+import { editOneRequest, addOneRequest } from '../../redux/actions/index';
+import useGetOneRequest from '../../cusom-hooks/GetOneRequest';
+import Form from '../forms/FormRequest';
 
 const propTypes = {
   type: PropTypes.string,
@@ -39,11 +40,21 @@ const ModalBodyCsDefaultProps = {
 
 const ModalBodyCs = (props) => {
   const { type, id, description } = props;
+  const dispatch = useDispatch();
+
   if (type === 'edit') {
-    return <EditRequest id={id} />;
+    const listRequests = useGetOneRequest(id);
+    const handleEdit = (values) => {
+      dispatch(editOneRequest(values, id));
+    };
+    return <Form title='Edit Request' action={handleEdit} initialData={listRequests?.rowData[0]} />;
   }
   if (type === 'add') {
-    return <AddRequest />;
+    const handleAdd = (values, form) => {
+      dispatch(addOneRequest(values));
+      form.restart();
+    };
+    return <Form title='Add Request' action={handleAdd} />;
   }
   return <>{description}</>;
 };
@@ -58,7 +69,7 @@ const Confirm = (props) => {
 
   return (
     <>
-      <Buttons action={toggle} type={type} buttonLabel={buttonLabel} />
+      {type === 'notice' ? <></> : <Buttons action={toggle} type={type} buttonLabel={buttonLabel} />}
       <Modal isOpen={modal} toggle={toggle} ref={fffff}>
         <ModalHeader toggle={toggle}>{title}</ModalHeader>
         <ModalBody>

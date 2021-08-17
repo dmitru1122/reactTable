@@ -18,6 +18,7 @@ import {
 } from 'carbon-components-react';
 import { deleteOneRequest, deleteOneRequestReset } from '../../redux/actions/index';
 import Modal from '../modal/Modal';
+import Notice from '../modal/Notice';
 import SpinnerCS from '../spinner-cs/Spinner';
 
 const propTypes = {
@@ -42,24 +43,36 @@ function TableRequests(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { rowData, headerData } = props;
-  const [deleting, setDeleting] = useState({ status: false, id: 0 });
+  const [deleting, setDeleting] = useState({ status: 'beforeAction', id: 0 });
   const status = useSelector((state) => state.deleteRequestStatus);
 
   const openFullRequestInfo = (id) => {
     history.push(`/request/${id}`);
   };
   const handleClickDelete = (id) => {
-    setDeleting({ status: true, id });
+    setDeleting({ status: 'working', id });
     dispatch(deleteOneRequest(id));
   };
   useEffect(() => {
-    const reset = () => {
-      dispatch(deleteOneRequestReset());
-      setDeleting({ status: false, id: 0 });
-    };
-    if (status !== 'waiting') {
-      setTimeout(reset, 1000);
+    let reset = 0;
+
+    if (status === 'resolve') {
+      setDeleting({ status: 'success', id: 0 });
+      reset = setTimeout(() => {
+        dispatch(deleteOneRequestReset());
+        setDeleting({ status: false, id: 0 });
+      }, 5000);
     }
+    if (status === 'reject') {
+      setDeleting({ status: 'reject', id: 0 });
+      reset = setTimeout(() => {
+        dispatch(deleteOneRequestReset());
+        setDeleting({ status: false, id: 0 });
+      }, 5000);
+    }
+    return () => {
+      clearTimeout(reset);
+    };
   }, [status]);
   return (
     <div className='table'>
@@ -100,7 +113,7 @@ function TableRequests(props) {
               <TableBody>
                 {rows.map((row) => (
                   <TableRow key={row.id} className='table__row'>
-                    {deleting.status && deleting.id === row.id ? (
+                    {deleting.status === 'working' && deleting.id === row.id ? (
                       <td id='spin' className='table__row__cell--spinner' colSpan={row.cells.length + 1}>
                         <SpinnerCS />
                       </td>
@@ -132,6 +145,8 @@ function TableRequests(props) {
           </TableContainer>
         )}
       </DataTable>
+      <Notice isShowModal={deleting.status === 'success'} title='Warning' description='Request was deleted' />
+      <Notice isShowModal={deleting.status === 'reject'} title='Error' description='Something was wrong' />
     </div>
   );
 }

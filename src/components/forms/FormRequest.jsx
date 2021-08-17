@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import { TextInput, Select, SelectItem, RadioButtonGroup, RadioButton, Button } from 'carbon-components-react';
@@ -23,15 +22,12 @@ const defaultProps = {
   action: null,
 };
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 const FormRequest = (props) => {
   const { title, initialData, action } = props;
   const formData = initialData;
   const [isValid, setIsValid] = useState(false);
 
   const onSubmit = async (values, form) => {
-    await sleep(300);
     action(values, form);
   };
 
@@ -130,7 +126,7 @@ const FormRequest = (props) => {
                 <Field name='gender'>
                   {({ input, meta }) => (
                     <div className='form__field'>
-                      <label>Gender</label>
+                      <h4 htmlFor='male'>Gender</h4>
                       <RadioButtonGroup
                         {...input}
                         invalid={meta.error && meta.touched}
@@ -172,7 +168,6 @@ const FormRequest = (props) => {
                 </Button>
               </Col>
             </Row>
-            {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
           </form>
         )}
       />

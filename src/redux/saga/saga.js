@@ -8,9 +8,9 @@ import {
   deleteOneRequestSuccess,
   deleteOneRequestFail,
   // editOneRequestSuccess,
-  editOneRequestFail,
+  // editOneRequestFail,
   // addOneRequestSuccess,
-  addOneRequestFail,
+  // addOneRequestFail,
 } from '../actions/index';
 import actionTypes from '../actions/actionTypes';
 // fake
@@ -53,7 +53,8 @@ function* addOneRequest(form) {
     yield reloadDB();
   } catch (error) {
     console.error(error);
-    yield put(addOneRequestFail(false));
+    yield put(failure(error));
+    // yield put(addOneRequestFail(false));
   }
 }
 
@@ -67,6 +68,7 @@ function* deleteOneRequest(params) {
     // }
   } catch (err) {
     // console.error(err);
+    yield put(failure(err));
     yield put(deleteOneRequestFail());
   }
 }
@@ -80,7 +82,8 @@ function* editOneRequest(params) {
     yield put(loadOneRequestSuccess(dataResponse, id));
     yield reloadDB();
   } catch (err) {
-    yield put(editOneRequestFail());
+    yield put(failure(err));
+    // yield put(editOneRequestFail());
   }
 }
 

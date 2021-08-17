@@ -47,11 +47,11 @@ const reducer = (state = exampleInitialState, action) => {
       return {
         ...state,
         ...{ deleteRequestStatus: 'resolve' },
-        requestData: {
-          ...state.requestData,
+        // requestData: {
+        //   ...state.requestData,
 
-          rowData: [...state.requestData.rowData.filter((item) => (+item.id !== +action.id ? item : null))],
-        },
+        //   rowData: [...state.requestData.rowData.filter((item) => (+item.id !== +action.id ? item : null))],
+        // },
       };
     case actionTypes.DELETE_ONE_REQUEST_FAIL:
       return {
