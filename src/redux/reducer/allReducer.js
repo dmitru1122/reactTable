@@ -1,16 +1,15 @@
 import actionTypes from '../actions/actionTypes';
 
-export const exampleInitialState = {
+const initialState = {
   error: null,
   lastUpdate: 0,
   requestData: { headerData: null, rowData: null },
   deleteRequestStatus: 'waiting',
   fullRequestInfo: {},
   placeholderData: null,
-  sendDataSuccess: null,
 };
 
-const reducer = (state = exampleInitialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     // case HYDRATE:
     //   return { ...state, ...action.payload };
@@ -33,16 +32,16 @@ const reducer = (state = exampleInitialState, action) => {
         ...state,
         fullRequestInfo: { ...state.fullRequestInfo, [action.id]: action.data },
       };
-    case actionTypes.ADD_ONE_REQUEST_SUCCESS:
-      return {
-        ...state,
-        // ...{ deleteRequestStatus: 'resolve' },
-        requestData: {
-          ...state.requestData,
+    // case actionTypes.ADD_ONE_REQUEST_SUCCESS:
+    //   return {
+    //     ...state,
+    //     // ...{ deleteRequestStatus: 'resolve' },
+    //     requestData: {
+    //       ...state.requestData,
 
-          rowData: [...state.requestData.rowData.push(action.data)],
-        },
-      };
+    //       rowData: [...state.requestData.rowData.push(action.data)],
+    //     },
+    //   };
     case actionTypes.DELETE_ONE_REQUEST_SUCCESS:
       return {
         ...state,
@@ -63,22 +62,17 @@ const reducer = (state = exampleInitialState, action) => {
         ...state,
         ...{ deleteRequestStatus: 'waiting' },
       };
-    case actionTypes.EDIT_ONE_REQUEST_SUCCESS: {
-      return {
-        ...state,
-        // ...{ requestData: action.data },
-        requestData: {
-          ...state.requestData,
-          rowData: action.data,
-          // rowData: [...state.requestData.rowData.map((item) => (+item.id !== +action.id ? action.data : item))],
-        },
-      };
-    }
-    case actionTypes.SEND_DATA_SUCCESS:
-      return {
-        ...state,
-        ...{ sendDataSuccess: action.data },
-      };
+    // case actionTypes.EDIT_ONE_REQUEST_SUCCESS: {
+    //   return {
+    //     ...state,
+    //     // ...{ requestData: action.data },
+    //     requestData: {
+    //       ...state.requestData,
+    //       rowData: action.data,
+    //       // rowData: [...state.requestData.rowData.map((item) => (+item.id !== +action.id ? action.data : item))],
+    //     },
+    //   };
+    // }
 
     default:
       return state;

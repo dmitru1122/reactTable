@@ -8,7 +8,7 @@ import Header from '../components/main-layout/header/Header';
 import Footer from '../components/main-layout/footer/Footer';
 import HomePage from '../components/pages/home-page/HomePage';
 import Request from '../components/pages/request/Request';
-import { createLoacalStorage } from '../fakeDb/connect';
+import createLoacalStorage from '../fakeDb/connect';
 
 function App() {
   createLoacalStorage();

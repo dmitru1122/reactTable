@@ -1,6 +1,6 @@
 import fakeDB from './db.json';
 
-export const headerData = [
+const headerData = [
   {
     key: 'purpose',
     header: 'Purpose',
@@ -11,7 +11,7 @@ export const headerData = [
   },
 ];
 
-export const fullHeaderData = [
+const fullHeaderData = [
   {
     key: 'purpose',
     header: 'Purpose',
@@ -29,7 +29,7 @@ export const fullHeaderData = [
     header: 'Purpose',
   },
 ];
-export function createLoacalStorage() {
+export default function createLoacalStorage() {
   let check = localStorage.getItem('rowData') ? null : localStorage.setItem('rowData', JSON.stringify(fakeDB));
   check = localStorage.getItem('headerData') ? null : localStorage.setItem('headerData', JSON.stringify(headerData));
   check = localStorage.getItem('fullHeader')

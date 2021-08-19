@@ -1,6 +1,6 @@
+import React from 'react';
 import { TrashCan32 as Delete, Edit32 as Edit, Add32 as Add } from '@carbon/icons-react';
 import { Button as ButtonCarbon } from 'carbon-components-react';
-import { Button } from 'reactstrap';
 
 import PropTypes from 'prop-types';
 
@@ -45,15 +45,15 @@ const Buttons = (props) => {
   }
   if (type === 'add') {
     return (
-      <ButtonCarbon onClick={action} renderIcon={Add} kind='primary'>
+      <ButtonCarbon className='button-add' onClick={action} renderIcon={Add} kind='primary'>
         Add new
       </ButtonCarbon>
     );
   }
   return (
-    <Button color='danger' onClick={action}>
+    <ButtonCarbon data-test='default-btn' color='danger' onClick={action}>
       {buttonLabel}
-    </Button>
+    </ButtonCarbon>
   );
 };
 Buttons.propTypes = ButtonsPropTypes;
