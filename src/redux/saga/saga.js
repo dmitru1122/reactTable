@@ -17,12 +17,12 @@ import actionTypes from '../actions/actionTypes';
 import { getDBFull, getOne, addOne, deleteOne, editOne } from './methods';
 // fake
 
-function* reloadDB() {
+export function* reloadDB() {
   const data = yield getDBFull();
   yield put(loadDataSuccess(data));
 }
 
-function* loadDataSaga() {
+export function* loadDataSaga() {
   try {
     // const { status, data } = yield call(fetch('https://simple-blog-api.crew.red/posts'));
     yield delay(2000);
@@ -35,20 +35,22 @@ function* loadDataSaga() {
   }
 }
 
-function* loadOneRequest(params) {
+export function* loadOneRequest(params) {
   const { id } = params;
   try {
     yield delay(2000);
-    const data = getOne(id);
+
+    const data = yield getOne(id);
     yield put(loadOneRequestSuccess(data, id));
   } catch (err) {
     yield put(failure(err));
   }
 }
 
-function* addOneRequest(form) {
-  const { data } = form;
+export function* addOneRequest(params) {
+  const { data } = params;
   try {
+    yield delay(700);
     yield addOne(data);
     yield reloadDB();
   } catch (error) {
@@ -58,11 +60,11 @@ function* addOneRequest(form) {
   }
 }
 
-function* deleteOneRequest(params) {
+export function* deleteOneRequest(params) {
   const { id } = params;
   try {
     yield delay(1000);
-    deleteOne(id);
+    yield deleteOne(id);
     yield reloadDB();
     yield put(deleteOneRequestSuccess());
     // }
@@ -72,13 +74,13 @@ function* deleteOneRequest(params) {
     yield put(deleteOneRequestFail());
   }
 }
-function* editOneRequest(params) {
+export function* editOneRequest(params) {
   const { data, id } = params;
   try {
     yield delay(1000);
     yield editOne(data, id);
     // reload fullRequestInfo, without this action after edit we have old data in redux
-    const dataResponse = getOne(id);
+    const dataResponse = yield getOne(id);
     yield put(loadOneRequestSuccess(dataResponse, id));
     yield reloadDB();
   } catch (err) {
