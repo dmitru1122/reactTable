@@ -1,3 +1,5 @@
+import React from 'react';
+
 const SpinnerCs = () => {
   return (
     <div className='spinner-border text-primary' role='status'>

@@ -1,38 +1,11 @@
-const rowData = () => JSON.parse(localStorage.rowData);
-const headerData = () => JSON.parse(localStorage.headerData);
-const fullHeaderData = () => JSON.parse(localStorage.fullHeader);
+import * as mockData from '../reducer/mockData';
 
-// const headerData = [
-//   {
-//     key: 'purpose',
-//     header: 'Purpose',
-//   },
-//   {
-//     key: 'firstName',
-//     header: 'First Name',
-//   },
-// ];
+const rowData = () => (localStorage?.rowData ? JSON.parse(localStorage?.rowData) : mockData.rowData);
+const headerData = () => (localStorage?.headerData ? JSON.parse(localStorage?.headerData) : mockData.headerData);
+const fullHeaderData = () =>
+  localStorage?.fullHeader ? JSON.parse(localStorage?.fullHeader) : mockData.fullHeaderData;
 
-// const fullHeaderData = [
-//   {
-//     key: 'purpose',
-//     header: 'Purpose',
-//   },
-//   {
-//     key: 'firstName',
-//     header: 'First Name',
-//   },
-//   {
-//     key: 'lastName',
-//     header: 'Last Name',
-//   },
-//   {
-//     key: 'gender',
-//     header: 'Purpose',
-//   },
-// ];
-
-function filter(data, checkCompare) {
+export function filter(data, checkCompare) {
   const interalArray = [];
   let internalObject = {};
 
@@ -51,7 +24,7 @@ export const getDBFull = () => {
   return { rowData: resultWithFilter, headerData: headerData() };
 };
 
-function returnOne(data, id) {
+export function returnOne(data, id) {
   const internalArr = data.filter((item) => (+item.id === +id ? item : null));
   return internalArr;
 }
@@ -75,7 +48,7 @@ export function editOne(data, id) {
 export function addOne(data) {
   const lastIdNumber = rowData().length > 0 ? +rowData()[rowData().length - 1]?.id : 1;
   const internalData = { ...data, id: (+lastIdNumber + +1).toString() };
-  const resArr = JSON.parse(localStorage.rowData);
+  const resArr = rowData();
   resArr.push(internalData);
   localStorage.setItem('rowData', JSON.stringify(resArr));
 }
