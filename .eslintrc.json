@@ -23,11 +23,13 @@
         "custom": "ignore"
       }
     ],
+
     "prettier/prettier": [
       "warn",
       {
         "singleQuote": true,
         "semi": true,
+        "endOfLine": "auto",
         "trailingComma": "all"
       }
     ],
