@@ -7,6 +7,7 @@ function useGetRequestData() {
   const lastUpdate = useSelector((state) => state.lastUpdate);
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
+
   useEffect(() => {
     if (requestsData?.headerData) {
       setData(requestsData);

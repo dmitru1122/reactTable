@@ -1,5 +1,5 @@
-import { filter, getDBFull, returnOne, getOne } from './methods';
-import { rowData, rowDataAfterFilter, headerData, fullHeaderData } from '../mockData';
+import { filter, getDBFull, returnOne, getOne } from '../methods';
+import { rowData, rowDataAfterFilter, headerData, fullHeaderData } from '../../mockData';
 
 const localStorageMock = {
   getItem: jest.fn(),
@@ -12,6 +12,7 @@ describe('methods', () => {
   it('check filter function, should return the filtered data', () => {
     expect(filter(rowData, headerData)).toEqual(rowDataAfterFilter);
   });
+
   it('should return filtered data from dataBase - getDBFull', () => {
     const expectedData = { rowData: rowDataAfterFilter, headerData };
     expect(getDBFull()).toEqual(expectedData);

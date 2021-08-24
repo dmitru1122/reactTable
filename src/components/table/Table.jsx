@@ -74,6 +74,7 @@ function TableRequests(props) {
       clearTimeout(reset);
     };
   }, [status]);
+
   return (
     <div className='table'>
       <DataTable rows={rowData} headers={headerData} isSortable>
@@ -85,13 +86,6 @@ function TableRequests(props) {
                   tabIndex={getBatchActionProps().shouldShowBatchActions ? -1 : 0}
                   onChange={onInputChange}
                 />
-                {/* <Button
-                  tabIndex={getBatchActionProps().shouldShowBatchActions ? -1 : 0}
-                  onClick={() => handleClickEdit('addRequest', '0')}
-                  renderIcon={Add}
-                  kind='primary'>
-                  Add new
-                </Button> */}
                 <Modal
                   type='add'
                   title='Add request'

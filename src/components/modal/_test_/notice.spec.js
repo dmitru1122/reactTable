@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import Notice from './Notice';
+import Notice from '../Notice';
 
 const prop = {
   isShowModal: true,
