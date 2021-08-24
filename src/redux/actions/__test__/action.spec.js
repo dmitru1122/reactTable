@@ -1,6 +1,6 @@
 import * as actions from '../index';
 import actionTypes from '../actionTypes';
-import { addOneRequestDataMock, editOneRequestMock, loadDataMock, loadOneRequestMock } from '../../reducer/mockData';
+import { addOneRequestDataMock, editOneRequestMock, loadDataMock, loadOneRequestMock } from '../../mockData';
 
 describe('ACTIONS', () => {
   it('creates LOAD_DATA', () => {
@@ -9,6 +9,7 @@ describe('ACTIONS', () => {
     };
     expect(actions.loadData()).toEqual(expectedAction);
   });
+
   it('creates LOAD_DATA_SUCCESS', () => {
     const expectedAction = {
       type: actionTypes.LOAD_DATA_SUCCESS,
@@ -17,6 +18,7 @@ describe('ACTIONS', () => {
     };
     expect(actions.loadDataSuccess(loadDataMock.data, loadDataMock.id)).toEqual(expectedAction);
   });
+
   it('creates FAILURE', () => {
     const expectedAction = {
       type: actionTypes.FAILURE,
@@ -24,6 +26,7 @@ describe('ACTIONS', () => {
     };
     expect(actions.failure('Error')).toEqual(expectedAction);
   });
+
   it('creates ADD_ONE_REQUEST', () => {
     const expectedAction = {
       type: actionTypes.ADD_ONE_REQUEST,
@@ -31,6 +34,7 @@ describe('ACTIONS', () => {
     };
     expect(actions.addOneRequest(addOneRequestDataMock)).toEqual(expectedAction);
   });
+
   it('creates LOAD_ONE_REQUEST', () => {
     const expectedAction = {
       type: actionTypes.LOAD_ONE_REQUEST,
@@ -38,6 +42,7 @@ describe('ACTIONS', () => {
     };
     expect(actions.loadOneRequest('100')).toEqual(expectedAction);
   });
+
   it('creates LOAD_ONE_REQUEST_SUCCESS', () => {
     const expectedAction = {
       type: actionTypes.LOAD_ONE_REQUEST_SUCCESS,
@@ -46,6 +51,7 @@ describe('ACTIONS', () => {
     };
     expect(actions.loadOneRequestSuccess(loadOneRequestMock.data, loadOneRequestMock.id)).toEqual(expectedAction);
   });
+
   it('creates DELETE_ONE_REQUEST', () => {
     const expectedAction = {
       type: actionTypes.DELETE_ONE_REQUEST,
@@ -53,12 +59,14 @@ describe('ACTIONS', () => {
     };
     expect(actions.deleteOneRequest('100')).toEqual(expectedAction);
   });
+
   it('creates DELETE_ONE_REQUEST_RESET', () => {
     const expectedAction = {
       type: actionTypes.DELETE_ONE_REQUEST_RESET,
     };
     expect(actions.deleteOneRequestReset()).toEqual(expectedAction);
   });
+
   it('creates DELETE_ONE_REQUEST_SUCCESS', () => {
     const expectedAction = {
       type: actionTypes.DELETE_ONE_REQUEST_SUCCESS,
@@ -66,12 +74,14 @@ describe('ACTIONS', () => {
     };
     expect(actions.deleteOneRequestSuccess('100')).toEqual(expectedAction);
   });
+
   it('creates DELETE_ONE_REQUEST_FAIL', () => {
     const expectedAction = {
       type: actionTypes.DELETE_ONE_REQUEST_FAIL,
     };
     expect(actions.deleteOneRequestFail()).toEqual(expectedAction);
   });
+
   it('creates EDIT_ONE_REQUEST', () => {
     const expectedAction = {
       type: actionTypes.EDIT_ONE_REQUEST,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import Modal from './Modal';
+import Modal from '../Modal';
 
 const prop = {
   type: 'add',
@@ -9,11 +9,12 @@ const prop = {
   description: 'test description',
   action: 'Continue',
   continueAction: () => {
-    console.log('continue');
+    const i = 1;
+    return i;
   },
   id: '0',
 };
-describe('Notice', () => {
+describe('Modal', () => {
   it('renders component without crashing', () => {
     shallow(<Modal />);
   });

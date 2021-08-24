@@ -1,4 +1,4 @@
-import * as mockData from '../reducer/mockData';
+import * as mockData from '../mockData';
 
 const rowData = () => (localStorage?.rowData ? JSON.parse(localStorage?.rowData) : mockData.rowData);
 const headerData = () => (localStorage?.headerData ? JSON.parse(localStorage?.headerData) : mockData.headerData);
