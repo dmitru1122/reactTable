@@ -7,25 +7,6 @@ import { editOneRequest, addOneRequest } from '../../redux/actions/index';
 import useGetOneRequest from '../../cusom-hooks/GetOneRequest';
 import Form from '../forms/FormRequest';
 
-const propTypes = {
-  type: PropTypes.string,
-  buttonLabel: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  action: PropTypes.string,
-  continueAction: PropTypes.func,
-  id: PropTypes.string,
-};
-const defaultProps = {
-  type: 'delete',
-  buttonLabel: null,
-  title: '',
-  description: null,
-  action: 'Continue',
-  continueAction: null,
-  id: '',
-};
-
 const ModalBodyCsPropTypes = {
   type: PropTypes.string,
   description: PropTypes.string,
@@ -61,6 +42,25 @@ const ModalBodyCs = (props) => {
 ModalBodyCs.propTypes = ModalBodyCsPropTypes;
 ModalBodyCs.defaultProps = ModalBodyCsDefaultProps;
 
+const confirmPropTypes = {
+  type: PropTypes.string,
+  buttonLabel: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  action: PropTypes.string,
+  continueAction: PropTypes.func,
+  id: PropTypes.string,
+};
+const confirmDefaultProps = {
+  type: 'delete',
+  buttonLabel: null,
+  title: '',
+  description: null,
+  action: 'Continue',
+  continueAction: null,
+  id: '',
+};
+
 const Confirm = (props) => {
   const { type, title, buttonLabel, description, action, continueAction, id } = props;
   const [modal, setModal] = useState(false);
@@ -69,7 +69,7 @@ const Confirm = (props) => {
 
   return (
     <>
-      {type === 'notice' ? <></> : <Buttons action={toggle} type={type} buttonLabel={buttonLabel} />}
+      <Buttons action={toggle} type={type} buttonLabel={buttonLabel} />
       <Modal isOpen={modal} toggle={toggle} ref={fffff}>
         <ModalHeader toggle={toggle}>{title}</ModalHeader>
         <ModalBody>
@@ -92,7 +92,7 @@ const Confirm = (props) => {
     </>
   );
 };
-Confirm.propTypes = propTypes;
-Confirm.defaultProps = defaultProps;
+Confirm.propTypes = confirmPropTypes;
+Confirm.defaultProps = confirmDefaultProps;
 
 export default Confirm;

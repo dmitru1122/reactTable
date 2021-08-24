@@ -1,12 +1,13 @@
-import reducer from './allReducer';
-import { loadDataMock, initialState, loadOneRequestMock, loadSecondOneRequestMock } from '../mockData';
-import * as actions from '../actions/index';
+import reducer from '../allReducer';
+import { loadDataMock, initialState, loadOneRequestMock, loadSecondOneRequestMock } from '../../mockData';
+import * as actions from '../../actions/index';
 
 describe('REDUCER', () => {
   it('should return the initial state', () => {
     const newState = reducer(initialState, {});
     expect(newState).toEqual(initialState);
   });
+
   it('should handle "FAILURE" action', () => {
     const mockData = {
       error: 'test error',
@@ -21,12 +22,14 @@ describe('REDUCER', () => {
     const newState = reducer(initialState, action);
     expect(newState).toEqual(mockData);
   });
+
   it('should handle "LOAD_DATA_SUCCESS" action', () => {
     const mockData = { headerData: loadDataMock.data.headerData, rowData: loadDataMock.data.rowData };
     const action = actions.loadDataSuccess(loadDataMock.data, loadDataMock.id);
     const newState = reducer(initialState, action);
     expect(newState.requestData).toEqual(mockData);
   });
+
   it('should handle "LOAD_ONE_REQUEST_SUCCESS" action', () => {
     const mockData = {
       fullRequestInfo: {
@@ -40,6 +43,7 @@ describe('REDUCER', () => {
     const newState = reducer(initialState, action);
     expect(newState.fullRequestInfo).toEqual(mockData.fullRequestInfo);
   });
+
   it('should handle "LOAD_ONE_REQUEST_SUCCESS" action second time', () => {
     const mockData = {
       fullRequestInfo: {
@@ -59,6 +63,7 @@ describe('REDUCER', () => {
     const stateSecondAction = reducer(stateFirstAction, secondAction);
     expect(stateSecondAction.fullRequestInfo).toEqual(mockData.fullRequestInfo);
   });
+
   it('should handle "DELETE_ONE_REQUEST_SUCCESS" action', () => {
     const mockData = {
       deleteRequestStatus: 'resolve',
@@ -67,6 +72,7 @@ describe('REDUCER', () => {
     const newState = reducer(initialState, action);
     expect(newState.deleteRequestStatus).toEqual(mockData.deleteRequestStatus);
   });
+
   it('should handle "DELETE_ONE_REQUEST_FAIL" action', () => {
     const mockData = {
       deleteRequestStatus: 'reject',
@@ -75,6 +81,7 @@ describe('REDUCER', () => {
     const newState = reducer(initialState, action);
     expect(newState.deleteRequestStatus).toEqual(mockData.deleteRequestStatus);
   });
+
   it('should handle "DELETE_ONE_REQUEST_RESET" action', () => {
     const mockData = {
       deleteRequestStatus: 'waiting',
