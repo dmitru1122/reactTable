@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import actionTypes from '../redux/actions/actionTypes';
 
-function useGetRequestData() {
+export function useGetRequestData() {
   const requestsData = useSelector((state) => state.requestData);
   const lastUpdate = useSelector((state) => state.lastUpdate);
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
+  console.log(requestsData);
 
   useEffect(() => {
     if (requestsData?.headerData) {
@@ -16,7 +17,7 @@ function useGetRequestData() {
     }
   }, [lastUpdate, requestsData]);
 
-  return data;
+  return { data };
 }
 
-export default useGetRequestData;
+export const tti = 'sdfsd';

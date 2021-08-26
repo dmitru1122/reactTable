@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import actionTypes from '../redux/actions/actionTypes';
 
-function useGetOneRequest(id) {
+export function useGetOneRequest(id) {
   const requestsData = useSelector((state) => state.fullRequestInfo);
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
+
   useEffect(() => {
     if (requestsData[id]) {
       setData(requestsData[id]);
@@ -17,4 +18,4 @@ function useGetOneRequest(id) {
   return data;
 }
 
-export default useGetOneRequest;
+export const test = 'dfsf';

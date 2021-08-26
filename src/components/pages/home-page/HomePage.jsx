@@ -1,5 +1,5 @@
 import './HomePage.scss';
-import useGetRequestData from '../../../cusom-hooks/GetListRequests';
+import { useGetRequestData } from '../../../cusom-hooks/GetListRequests';
 import Table from '../../table/Table';
 import SpinnerCs from '../../spinner-cs/Spinner';
 

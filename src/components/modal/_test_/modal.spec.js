@@ -14,23 +14,28 @@ const prop = {
   },
   id: '0',
 };
+
 describe('Modal', () => {
   it('renders component without crashing', () => {
     shallow(<Modal />);
   });
 
   describe('passing props', () => {
-    const wrapper = mount(
-      <Modal
-        type={prop.type}
-        buttonLabel={prop.buttonLabel}
-        title={prop.title}
-        description={prop.description}
-        action={prop.action}
-        continueAction={prop.continueAction}
-        id={prop.id}
-      />,
-    );
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <Modal
+          type={prop.type}
+          buttonLabel={prop.buttonLabel}
+          title={prop.title}
+          description={prop.description}
+          action={prop.action}
+          continueAction={prop.continueAction}
+          id={prop.id}
+        />,
+      );
+    });
     it('contains isShow value', () => {
       expect(wrapper.props().type).toEqual(prop.type);
     });

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage loading should render component without crashing 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Home>
+    <main
+      className="home"
+    >
+      <div
+        className="d-flex align-items-center justify-content-center"
+      >
+        <SpinnerCs>
+          <div
+            className="spinner-border text-primary"
+            role="status"
+          >
+            <span
+              className="visually-hidden"
+            >
+              Loading...
+            </span>
+          </div>
+        </SpinnerCs>
+      </div>
+    </main>
+  </Home>
+</Provider>
+`;
