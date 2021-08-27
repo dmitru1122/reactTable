@@ -53,25 +53,23 @@ function TableRequests(props) {
     setDeleting({ status: 'working', id });
     dispatch(deleteOneRequest(id));
   };
+  const reset = () => {
+    dispatch(deleteOneRequestReset());
+    setDeleting({ status: false, id: 0 });
+  };
   useEffect(() => {
-    let reset = 0;
+    let callReset = 0;
 
     if (status === 'resolve') {
       setDeleting({ status: 'success', id: 0 });
-      reset = setTimeout(() => {
-        dispatch(deleteOneRequestReset());
-        setDeleting({ status: false, id: 0 });
-      }, 5000);
+      callReset = setTimeout(reset, 5000);
     }
     if (status === 'reject') {
       setDeleting({ status: 'reject', id: 0 });
-      reset = setTimeout(() => {
-        dispatch(deleteOneRequestReset());
-        setDeleting({ status: false, id: 0 });
-      }, 5000);
+      callReset = setTimeout(reset, 5000);
     }
     return () => {
-      clearTimeout(reset);
+      clearTimeout(callReset);
     };
   }, [status]);
 
@@ -139,8 +137,18 @@ function TableRequests(props) {
           </TableContainer>
         )}
       </DataTable>
-      <Notice isShowModal={deleting.status === 'success'} title='Warning' description='Request was deleted' />
-      <Notice isShowModal={deleting.status === 'reject'} title='Error' description='Something was wrong' />
+      <Notice
+        isShowModal={deleting.status === 'success'}
+        closeAction={reset}
+        title='Warning'
+        description='Request was deleted'
+      />
+      <Notice
+        isShowModal={deleting.status === 'reject'}
+        closeAction={reset}
+        title='Error'
+        description='Something was wrong'
+      />
     </div>
   );
 }
