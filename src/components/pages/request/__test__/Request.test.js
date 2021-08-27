@@ -5,6 +5,7 @@ import configureStore from 'redux-mock-store';
 import Spinner from '../../../spinner-cs/Spinner';
 import Table from '../../../table/Table';
 import Request from '../Request';
+import ReturnToListButton from '../../../buttons/LinkButton';
 import { initialState } from '../../../../redux/mockData';
 import { useGetOneRequest } from '../../../../cusom-hooks/GetOneRequest';
 
@@ -34,7 +35,7 @@ const fullRequestInfo = {
   },
 };
 
-describe('Component Page', () => {
+describe('Reqest Page', () => {
   const mockStore = configureStore();
   const store = mockStore(initialState);
   let component;
@@ -44,12 +45,17 @@ describe('Component Page', () => {
       component = setUp(store);
     });
 
-    it('should render cases container', () => {
+    it('should render cases Reqest page', () => {
       expect(component).toMatchSnapshot();
     });
 
     it('should render request without crashing', () => {
       expect(component).toBeTruthy();
+    });
+
+    it('should render ReturnToListButton', () => {
+      const element = <ReturnToListButton />;
+      expect(component.contains(element)).toBeTruthy();
     });
 
     it('should render spinner', () => {

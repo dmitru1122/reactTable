@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component Page loading should render cases container 1`] = `
+exports[`Reqest Page loading should render cases Reqest page 1`] = `
 <Provider
   store={
     Object {
