@@ -51,11 +51,13 @@ describe('Component Page', () => {
     it('should render request without crashing', () => {
       expect(component).toBeTruthy();
     });
+
     it('should render spinner', () => {
       const element = <Spinner />;
       expect(component.contains(element)).toBeTruthy();
     });
   });
+
   it('should render Table', () => {
     const element = <Table headerData={fullRequestInfo[2].headerData} rowData={fullRequestInfo[2].rowData} />;
 

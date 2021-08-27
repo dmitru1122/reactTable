@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Buttons from '../buttons/Buttons';
 import { editOneRequest, addOneRequest } from '../../redux/actions/index';
-import useGetOneRequest from '../../cusom-hooks/GetOneRequest';
+import { useGetOneRequest } from '../../cusom-hooks/GetOneRequest';
 import Form from '../forms/FormRequest';
 
 const ModalBodyCsPropTypes = {

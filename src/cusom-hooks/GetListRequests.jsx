@@ -7,7 +7,6 @@ export function useGetRequestData() {
   const lastUpdate = useSelector((state) => state.lastUpdate);
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
-  console.log(requestsData);
 
   useEffect(() => {
     if (requestsData?.headerData) {
@@ -17,7 +16,7 @@ export function useGetRequestData() {
     }
   }, [lastUpdate, requestsData]);
 
-  return { data };
+  return data;
 }
 
 export const tti = 'sdfsd';
