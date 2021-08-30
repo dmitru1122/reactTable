@@ -1,7 +1,5 @@
-import { React } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from '../redux/store/index';
 import '../theme/main.scss';
 
 import Header from '../components/main-layout/header/Header';
@@ -14,17 +12,15 @@ function App() {
   createLoacalStorage();
   return (
     <div className='App'>
-      <Provider store={store}>
-        <Router>
-          <Header />
-          <Switch>
-            <Route exact path='/request/:id' component={Request} />
-            <Route exact path='/' component={HomePage} />
-            <Route component={HomePage} />
-            <Footer />
-          </Switch>
-        </Router>
-      </Provider>
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path='/request/:id' component={Request} />
+          <Route exact path='/' component={HomePage} />
+          <Route component={HomePage} />
+          <Footer />
+        </Switch>
+      </Router>
     </div>
   );
 }

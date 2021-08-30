@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 import { TextInput, Select, SelectItem, RadioButtonGroup, RadioButton, Button } from 'carbon-components-react';
 import { Container, Row, Col } from 'reactstrap';
@@ -24,12 +24,16 @@ const defaultProps = {
 
 const FormRequest = (props) => {
   const { title, initialData, action } = props;
-  const formData = initialData;
+  const [formData, setFormData] = useState({ initialData });
   const [isValid, setIsValid] = useState(false);
 
   const onSubmit = async (values, form) => {
     action(values, form);
   };
+
+  useEffect(() => {
+    setFormData(initialData);
+  }, [initialData]);
 
   return (
     <Container className='form'>
@@ -60,7 +64,7 @@ const FormRequest = (props) => {
           return errors;
         }}
         render={({ handleSubmit, form, submitting, pristine, values }) => (
-          <form onSubmit={handleSubmit} className=''>
+          <form onSubmit={handleSubmit} className='' data-testid='form'>
             <Row>
               <Col className='col-md-12'>
                 <Field name='purpose'>
@@ -70,6 +74,7 @@ const FormRequest = (props) => {
                         {...input}
                         required
                         id='select-1'
+                        data-testid='purpose-select'
                         invalidText='This is an invalid error message.'
                         invalid={meta.error && meta.touched}
                         labelText='Select purpose of the request'>
