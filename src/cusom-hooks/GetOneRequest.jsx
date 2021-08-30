@@ -6,8 +6,11 @@ export function useGetOneRequest(id) {
   const requestsData = useSelector((state) => state.fullRequestInfo);
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
+  console.log(requestsData);
 
   useEffect(() => {
+    console.log(requestsData);
+    console.log(requestsData[id]);
     if (requestsData[id]) {
       setData(requestsData[id]);
     } else {
