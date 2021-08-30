@@ -1,9 +1,10 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Modal from '../Modal';
 
-const prop = {
+const addPropType = {
   type: 'add',
+  isShowModal: false,
   buttonLabel: 'button label',
   title: 'test title',
   description: 'test description',
@@ -17,33 +18,23 @@ const prop = {
 
 describe('Modal', () => {
   it('renders component without crashing', () => {
-    shallow(<Modal />);
+    mount(<Modal />);
   });
 
-  describe('passing props', () => {
+  describe('add type', () => {
     let wrapper;
 
     beforeEach(() => {
-      wrapper = mount(
-        <Modal
-          type={prop.type}
-          buttonLabel={prop.buttonLabel}
-          title={prop.title}
-          description={prop.description}
-          action={prop.action}
-          continueAction={prop.continueAction}
-          id={prop.id}
-        />,
-      );
+      wrapper = mount(<Modal {...addPropType} />);
     });
     it('contains isShow value', () => {
-      expect(wrapper.props().type).toEqual(prop.type);
+      expect(wrapper.props().type).toEqual(addPropType.type);
     });
     it('contains title value', () => {
-      expect(wrapper.props().title).toEqual(prop.title);
+      expect(wrapper.props().title).toEqual(addPropType.title);
     });
     it('contains description value', () => {
-      expect(wrapper.props().description).toEqual(prop.description);
+      expect(wrapper.props().description).toEqual(addPropType.description);
     });
     it('modal content', () => {
       expect(wrapper.find('.modal-content').length).toEqual(0);

@@ -1,11 +1,16 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Notice from '../Notice';
 
 const prop = {
   isShowModal: true,
   title: 'Test',
   description: 'test description',
+  closeAction: () => {
+    let i = 0;
+    i += 1;
+    return i;
+  },
 };
 
 const setUp = (props) => mount(<Notice {...props} />);
@@ -46,7 +51,7 @@ describe('Notice', () => {
       expect(wrapper.find('.modal-content').children()).toHaveLength(3);
     });
 
-    describe('modal header', () => {
+    describe('Modal header', () => {
       it('should to be in the Document', () => {
         expect(wrapper.find('.modal-header').length).toEqual(1);
         expect(wrapper.find('.modal-header').children()).toHaveLength(2);
@@ -90,9 +95,9 @@ describe('Notice', () => {
       });
     });
   });
-  describe('Hasn"t props', () => {
+  describe('Haven"t props', () => {
     const wrapper = mount(<Notice />);
-    it('dosn"t has modal content', () => {
+    it('dosn"t haven"t modal content', () => {
       expect(wrapper.find('.modal-content').length).toEqual(0);
       expect(wrapper.find('.modal-content').children()).toHaveLength(0);
     });

@@ -60,6 +60,7 @@ exports[`Reqest Page loading should render cases Reqest page 1`] = `
                   >
                     <Button
                       dangerDescription="danger"
+                      data-testid="LinkButton"
                       disabled={false}
                       isExpressive={false}
                       kind="ghost"
@@ -80,6 +81,7 @@ exports[`Reqest Page loading should render cases Reqest page 1`] = `
                         aria-describedby={null}
                         aria-pressed={null}
                         className="bx--btn bx--btn--ghost"
+                        data-testid="LinkButton"
                         disabled={false}
                         onBlur={[Function]}
                         onClick={[Function]}

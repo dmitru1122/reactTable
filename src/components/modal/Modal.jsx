@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -44,34 +44,45 @@ ModalBodyCs.defaultProps = ModalBodyCsDefaultProps;
 
 const confirmPropTypes = {
   type: PropTypes.string,
+  isShowModal: PropTypes.bool,
   buttonLabel: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
   action: PropTypes.string,
   continueAction: PropTypes.func,
+  closeAction: PropTypes.func,
   id: PropTypes.string,
 };
 const confirmDefaultProps = {
   type: 'delete',
+  isShowModal: false,
   buttonLabel: null,
   title: '',
   description: null,
   action: 'Continue',
   continueAction: null,
+  closeAction: null,
   id: '',
 };
 
 const Confirm = (props) => {
-  const { type, title, buttonLabel, description, action, continueAction, id } = props;
-  const [modal, setModal] = useState(false);
-  const fffff = useRef(null);
-  const toggle = () => setModal(!modal);
+  const { type, isShowModal, title, buttonLabel, description, action, continueAction, id, closeAction } = props;
+  const [modal, setModal] = useState(isShowModal);
+  useEffect(() => {
+    setModal(isShowModal);
+  }, [isShowModal]);
+  const toggle = () => {
+    setModal(!modal);
+    if (closeAction) closeAction();
+  };
 
   return (
     <>
-      <Buttons action={toggle} type={type} buttonLabel={buttonLabel} />
-      <Modal isOpen={modal} toggle={toggle} ref={fffff}>
-        <ModalHeader toggle={toggle}>{title}</ModalHeader>
+      {type === 'notice' ? <> </> : <Buttons action={toggle} type={type} buttonLabel={buttonLabel} />}
+      <Modal isOpen={modal} toggle={toggle} data-test='modal'>
+        <ModalHeader toggle={toggle} data-testid='modal-header'>
+          {title}
+        </ModalHeader>
         <ModalBody>
           <ModalBodyCs type={type} description={description} id={id} />
         </ModalBody>

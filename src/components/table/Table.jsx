@@ -18,7 +18,7 @@ import {
 } from 'carbon-components-react';
 import { deleteOneRequest, deleteOneRequestReset } from '../../redux/actions/index';
 import Modal from '../modal/Modal';
-import Notice from '../modal/Notice';
+// import Notice from '../modal/Notice';
 import SpinnerCS from '../spinner-cs/Spinner';
 
 const propTypes = {
@@ -137,17 +137,19 @@ function TableRequests(props) {
           </TableContainer>
         )}
       </DataTable>
-      <Notice
+      <Modal
+        type='notice'
         isShowModal={deleting.status === 'success'}
         closeAction={reset}
         title='Warning'
         description='Request was deleted'
       />
-      <Notice
-        isShowModal={deleting.status === 'reject'}
+      <Modal
+        type='notice'
+        isShowModal={deleting.status === 'success'}
         closeAction={reset}
-        title='Error'
-        description='Something was wrong'
+        title='Warning'
+        description='Request was deleted'
       />
     </div>
   );
