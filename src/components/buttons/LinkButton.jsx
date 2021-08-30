@@ -20,7 +20,7 @@ function LinkButton(props) {
     history.push(link);
   };
   return (
-    <Button renderIcon={Undo} kind='ghost' onClick={handleClickReturn}>
+    <Button data-testid='LinkButton' renderIcon={Undo} kind='ghost' onClick={handleClickReturn}>
       {label}
     </Button>
   );
