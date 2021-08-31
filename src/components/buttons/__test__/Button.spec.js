@@ -8,13 +8,13 @@ describe('Button', () => {
   it('shold render button', () => {
     const buttonLabel = 'hi';
     const component = setUp({ buttonLabel });
-    expect(component.find('[data-test="default-btn"]').text()).toContain('hi');
+    expect(component.find('Button').text()).toContain('hi');
   });
 
   it('should render add button', () => {
     const type = 'add';
     const component = setUp({ type });
-    expect(component.find('.button-add').text()).toContain('Add new');
+    expect(component.find('Button').prop('iconDescription')).toContain('Add new');
   });
 
   it('should render delete button', () => {

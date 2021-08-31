@@ -5,11 +5,11 @@ exports[`FormRequest should create shanapshot 1`] = `
   action={[Function]}
   initialData={
     Object {
-      "firstName": "Jest",
-      "gender": "Another",
-      "id": "000",
-      "lastName": "Enzyme",
-      "purpose": "Test",
+      "firstName": "Vit",
+      "gender": "male",
+      "id": "2",
+      "lastName": "vab",
+      "purpose": "Job proposition",
     }
   }
   title="Test title"
@@ -29,11 +29,11 @@ exports[`FormRequest should create shanapshot 1`] = `
       <ReactFinalForm
         initialValues={
           Object {
-            "firstName": "Jest",
-            "gender": "Another",
-            "id": "000",
-            "lastName": "Enzyme",
-            "purpose": "Test",
+            "firstName": "Vit",
+            "gender": "male",
+            "id": "2",
+            "lastName": "vab",
+            "purpose": "Job proposition",
           }
         }
         onSubmit={[Function]}
@@ -41,7 +41,6 @@ exports[`FormRequest should create shanapshot 1`] = `
         validate={[Function]}
       >
         <form
-          className=""
           data-testid="form"
           onSubmit={[Function]}
         >
@@ -97,7 +96,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                         onChange={[Function]}
                         onFocus={[Function]}
                         required={true}
-                        value="Test"
+                        value="Job proposition"
                       >
                         <div
                           className="bx--form-item"
@@ -124,26 +123,27 @@ exports[`FormRequest should create shanapshot 1`] = `
                                 onChange={[Function]}
                                 onFocus={[Function]}
                                 required={true}
-                                value="Test"
+                                value="Job proposition"
                               >
                                 <SelectItem
                                   disabled={true}
                                   hidden={false}
-                                  text="Test"
-                                  value="Test"
+                                  text="Job proposition"
+                                  value="Job proposition"
                                 >
                                   <option
                                     className="bx--select-option"
                                     disabled={true}
                                     hidden={false}
-                                    value="Test"
+                                    value="Job proposition"
                                   >
-                                    Test
+                                    Job proposition
                                   </option>
                                 </SelectItem>
                                 <SelectItem
                                   disabled={false}
                                   hidden={false}
+                                  key="Job proposition"
                                   text="Job proposition"
                                   value="Job proposition"
                                 >
@@ -159,6 +159,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                                 <SelectItem
                                   disabled={false}
                                   hidden={false}
+                                  key="Review"
                                   text="Review"
                                   value="Review"
                                 >
@@ -174,6 +175,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                                 <SelectItem
                                   disabled={false}
                                   hidden={false}
+                                  key="Another"
                                   text="Another"
                                   value="Another"
                                 >
@@ -241,24 +243,24 @@ exports[`FormRequest should create shanapshot 1`] = `
             <div
               className="row"
             >
-              <ForwardRef(Field)
-                name="firstName"
+              <Col
+                className="form__field col-sm-6 col-12"
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
               >
-                <Col
-                  className="form__field col-sm-6 col-12"
-                  tag="div"
-                  widths={
-                    Array [
-                      "xs",
-                      "sm",
-                      "md",
-                      "lg",
-                      "xl",
-                    ]
-                  }
+                <div
+                  className="form__field col-sm-6 col-12 col"
                 >
-                  <div
-                    className="form__field col-sm-6 col-12 col"
+                  <ForwardRef(Field)
+                    name="firstName"
                   >
                     <ForwardRef(TextInput)
                       className="bx--text-input--lg"
@@ -278,7 +280,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                       placeholder="First Name"
                       required={true}
                       type="text"
-                      value="Jest"
+                      value="Vit"
                       warn={false}
                       warnText=""
                     >
@@ -305,33 +307,33 @@ exports[`FormRequest should create shanapshot 1`] = `
                               required={true}
                               title="First Name"
                               type="text"
-                              value="Jest"
+                              value="Vit"
                             />
                           </div>
                         </div>
                       </div>
                     </ForwardRef(TextInput)>
-                  </div>
-                </Col>
-              </ForwardRef(Field)>
-              <ForwardRef(Field)
-                name="lastName"
+                  </ForwardRef(Field)>
+                </div>
+              </Col>
+              <Col
+                className="form__field col-sm-6 col-12"
+                tag="div"
+                widths={
+                  Array [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl",
+                  ]
+                }
               >
-                <Col
-                  className="form__field col-sm-6 col-12"
-                  tag="div"
-                  widths={
-                    Array [
-                      "xs",
-                      "sm",
-                      "md",
-                      "lg",
-                      "xl",
-                    ]
-                  }
+                <div
+                  className="form__field col-sm-6 col-12 col"
                 >
-                  <div
-                    className="form__field col-sm-6 col-12 col"
+                  <ForwardRef(Field)
+                    name="lastName"
                   >
                     <ForwardRef(TextInput)
                       className="bx--text-input--lg"
@@ -351,7 +353,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                       placeholder="Last Name"
                       required={true}
                       type="text"
-                      value="Enzyme"
+                      value="vab"
                       warn={false}
                       warnText=""
                     >
@@ -378,15 +380,15 @@ exports[`FormRequest should create shanapshot 1`] = `
                               required={true}
                               title="Last Name"
                               type="text"
-                              value="Enzyme"
+                              value="vab"
                             />
                           </div>
                         </div>
                       </div>
                     </ForwardRef(TextInput)>
-                  </div>
-                </Col>
-              </ForwardRef(Field)>
+                  </ForwardRef(Field)>
+                </div>
+              </Col>
             </div>
           </Row>
           <Row
@@ -431,7 +433,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                         Gender
                       </h4>
                       <RadioButtonGroup
-                        defaultSelected="Another"
+                        defaultSelected="male"
                         invalidText="This is an invalid error message."
                         labelPosition="right"
                         labelText="Last Name"
@@ -441,8 +443,8 @@ exports[`FormRequest should create shanapshot 1`] = `
                         onChange={[Function]}
                         onFocus={[Function]}
                         orientation="horizontal"
-                        value="Another"
-                        valueSelected="Another"
+                        value="male"
+                        valueSelected="male"
                       >
                         <div
                           className="bx--form-item"
@@ -451,7 +453,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                             className="bx--radio-button-group bx--radio-button-group--label-right"
                           >
                             <ForwardRef(RadioButton)
-                              checked={false}
+                              checked={true}
                               id="male"
                               key="male/.0"
                               labelText="male"
@@ -460,7 +462,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                               value="male"
                             >
                               <RadioButton
-                                checked={false}
+                                checked={true}
                                 id="male"
                                 innerRef={null}
                                 labelPosition="right"
@@ -473,7 +475,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                                   className="bx--radio-button-wrapper"
                                 >
                                   <input
-                                    checked={false}
+                                    checked={true}
                                     className="bx--radio-button"
                                     id="male"
                                     name="radio-button-group"
@@ -636,7 +638,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                   className="d-flex form__field col"
                 >
                   <Button
-                    className="form__submit-btn "
+                    className="form__submit-btn false"
                     dangerDescription="danger"
                     disabled={false}
                     isExpressive={false}
@@ -650,7 +652,7 @@ exports[`FormRequest should create shanapshot 1`] = `
                     <button
                       aria-describedby={null}
                       aria-pressed={null}
-                      className="form__submit-btn  bx--btn bx--btn--tertiary"
+                      className="form__submit-btn false bx--btn bx--btn--tertiary"
                       disabled={false}
                       onBlur={[Function]}
                       onClick={[Function]}
