@@ -34,8 +34,6 @@
 #backup-prod-build
 */build
 /build
-*/public
-/public
 
 npm-debug.log*
 yarn-debug.log*

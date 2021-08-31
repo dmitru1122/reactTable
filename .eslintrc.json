@@ -14,8 +14,16 @@
   },
   "plugins": ["react"],
   "rules": {
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "react/jsx-props-no-spreading": [
+      1,
+      {
+        "custom": "ignore"
+      }
+    ],
     "prettier/prettier": [
       "warn",
       {
@@ -23,7 +31,6 @@
         "semi": true,
         "trailingComma": "all"
       }
-    ],
-    "no-console": "warn"
+    ]
   }
 }
