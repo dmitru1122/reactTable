@@ -3,17 +3,7 @@ import { Undo32 as Undo } from '@carbon/icons-react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const propTypes = {
-  link: PropTypes.string,
-  label: PropTypes.string,
-};
-const defaultProps = {
-  link: '/',
-  label: 'Return to the list requests',
-};
-
-function LinkButton(props) {
-  const { link, label } = props;
+function LinkButton({ link, label }) {
   const history = useHistory();
 
   const handleClickReturn = () => {
@@ -25,6 +15,14 @@ function LinkButton(props) {
     </Button>
   );
 }
+const propTypes = {
+  link: PropTypes.string,
+  label: PropTypes.string,
+};
+const defaultProps = {
+  link: '/',
+  label: 'Return to the list requests',
+};
 
 LinkButton.propTypes = propTypes;
 LinkButton.defaultProps = defaultProps;

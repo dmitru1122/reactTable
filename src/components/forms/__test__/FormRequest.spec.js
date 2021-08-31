@@ -1,17 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import FormRequest from '../FormRequest';
+import { rowData } from '../../../redux/mockData';
 
 const setUp = (props) => mount(<FormRequest {...props} />);
 
 const props = {
   title: 'Test title',
-  initialData: { id: '000', purpose: 'Test', firstName: 'Jest', lastName: 'Enzyme', gender: 'Another' },
-  action: () => {
-    let i = 2;
-    i += 1;
-    return i;
-  },
+  initialData: { ...rowData[0] },
+  action: () => {},
 };
 
 describe('FormRequest', () => {

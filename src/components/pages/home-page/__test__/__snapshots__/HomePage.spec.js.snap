@@ -17,22 +17,26 @@ exports[`HomePage loading should render component without crashing 1`] = `
     <main
       className="home"
     >
-      <div
-        className="d-flex align-items-center justify-content-center"
+      <LoadTable
+        data={null}
       >
-        <SpinnerCs>
-          <div
-            className="spinner-border text-primary"
-            role="status"
-          >
-            <span
-              className="visually-hidden"
+        <div
+          className="d-flex align-items-center justify-content-center"
+        >
+          <SpinnerCs>
+            <div
+              className="spinner-border text-primary"
+              role="status"
             >
-              Loading...
-            </span>
-          </div>
-        </SpinnerCs>
-      </div>
+              <span
+                className="visually-hidden"
+              >
+                Loading...
+              </span>
+            </div>
+          </SpinnerCs>
+        </div>
+      </LoadTable>
     </main>
   </Home>
 </Provider>

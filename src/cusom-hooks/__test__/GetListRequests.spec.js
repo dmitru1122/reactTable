@@ -5,7 +5,6 @@ import configureStore from 'redux-mock-store';
 import { useGetRequestData } from '../GetListRequests';
 import { initialState, headerData, rowData } from '../../redux/mockData';
 
-// import { getStarWars } from './base-fetch';
 const storeWithItem = { ...initialState, requestData: { ...initialState.requestData } };
 storeWithItem.requestData.headerData = headerData;
 storeWithItem.requestData.rowData = rowData;

@@ -1,11 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
-import SpinnerCs from '../../spinner-cs/Spinner';
-// import { fullHeaderData, rowData } from '../../../fakeDb/sampleData';
 import { useGetOneRequest } from '../../../cusom-hooks/GetOneRequest';
-
 import ReturnToListButton from '../../buttons/LinkButton';
-import Table from '../../table/Table';
+import LoadTable from '../../load-table/LoadTable';
 
 const Request = () => {
   const params = useParams();
@@ -19,13 +16,7 @@ const Request = () => {
           </Col>
         </Row>
       </Container>
-      {requestData ? (
-        <Table headerData={requestData?.headerData} rowData={requestData.rowData} />
-      ) : (
-        <div className='d-flex align-items-center justify-content-center'>
-          <SpinnerCs />
-        </div>
-      )}
+      <LoadTable data={requestData} />
     </main>
   );
 };

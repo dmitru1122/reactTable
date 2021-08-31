@@ -205,24 +205,25 @@ exports[`Table  loading should render Table 1`] = `
                   </TableToolbarSearch>
                   <Confirm
                     action="Delete"
-                    buttonLabel="I have a component"
-                    closeAction={null}
+                    buttonLabel="Add request"
+                    closeAction={[Function]}
                     continueAction={null}
                     description="hi"
                     id=""
                     isShowModal={false}
-                    title="Add request"
+                    title=""
                     type="add"
                   >
                     <Buttons
                       action={[Function]}
-                      buttonLabel="I have a component"
+                      buttonLabel="Add request"
                       type="add"
                     >
                       <Button
-                        className="button-add"
                         dangerDescription="danger"
                         disabled={false}
+                        hasIconOnly={true}
+                        iconDescription="Add new"
                         isExpressive={false}
                         kind="primary"
                         onClick={[Function]}
@@ -235,13 +236,13 @@ exports[`Table  loading should render Table 1`] = `
                         size="default"
                         tabIndex={0}
                         tooltipAlignment="center"
-                        tooltipPosition="top"
+                        tooltipPosition="bottom"
                         type="button"
                       >
                         <button
                           aria-describedby={null}
                           aria-pressed={null}
-                          className="button-add bx--btn bx--btn--primary"
+                          className="bx--btn bx--btn--primary bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--bottom bx--tooltip--align-center"
                           disabled={false}
                           onBlur={[Function]}
                           onClick={[Function]}
@@ -251,13 +252,21 @@ exports[`Table  loading should render Table 1`] = `
                           tabIndex={0}
                           type="button"
                         >
-                          Add new
+                          <div
+                            className="bx--assistive-text"
+                            onMouseEnter={[Function]}
+                          >
+                            Add new
+                          </div>
+                          Add request
                           <ForwardRef(Add32)
                             aria-hidden="true"
+                            aria-label="Add new"
                             className="bx--btn__icon"
                           >
                             <Icon
                               aria-hidden="true"
+                              aria-label="Add new"
                               className="bx--btn__icon"
                               fill="currentColor"
                               height={32}
@@ -267,12 +276,14 @@ exports[`Table  loading should render Table 1`] = `
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <svg
-                                aria-hidden={true}
+                                aria-hidden="true"
+                                aria-label="Add new"
                                 className="bx--btn__icon"
                                 fill="currentColor"
                                 focusable="false"
                                 height={32}
                                 preserveAspectRatio="xMidYMid meet"
+                                role="img"
                                 viewBox="0 0 32 32"
                                 width={32}
                                 xmlns="http://www.w3.org/2000/svg"
@@ -596,8 +607,8 @@ exports[`Table  loading should render Table 1`] = `
                           >
                             <Confirm
                               action="Delete"
-                              buttonLabel="I have a component"
-                              closeAction={null}
+                              buttonLabel={null}
+                              closeAction={[Function]}
                               continueAction={[Function]}
                               description="Are you sure you want to go on?"
                               id=""
@@ -607,7 +618,7 @@ exports[`Table  loading should render Table 1`] = `
                             >
                               <Buttons
                                 action={[Function]}
-                                buttonLabel="I have a component"
+                                buttonLabel={null}
                                 type="delete"
                               >
                                 <Button
@@ -723,7 +734,7 @@ exports[`Table  loading should render Table 1`] = `
                             <Confirm
                               action="Delete"
                               buttonLabel={null}
-                              closeAction={null}
+                              closeAction={[Function]}
                               continueAction={null}
                               description={null}
                               id="2"
@@ -866,50 +877,6 @@ exports[`Table  loading should render Table 1`] = `
       title="Warning"
       type="notice"
     >
-       
-      <Modal
-        autoFocus={true}
-        backdrop={true}
-        backdropTransition={
-          Object {
-            "mountOnEnter": true,
-            "timeout": 150,
-          }
-        }
-        centered={false}
-        container="body"
-        data-test="modal"
-        fade={true}
-        isOpen={false}
-        keyboard={true}
-        modalTransition={
-          Object {
-            "timeout": 300,
-          }
-        }
-        onClosed={[Function]}
-        onOpened={[Function]}
-        returnFocusAfterClose={true}
-        role="dialog"
-        scrollable={false}
-        toggle={[Function]}
-        trapFocus={false}
-        unmountOnClose={true}
-        zIndex={1050}
-      />
-    </Confirm>
-    <Confirm
-      action="Continue"
-      buttonLabel={null}
-      closeAction={[Function]}
-      continueAction={null}
-      description="Request was deleted"
-      id=""
-      isShowModal={false}
-      title="Warning"
-      type="notice"
-    >
-       
       <Modal
         autoFocus={true}
         backdrop={true}

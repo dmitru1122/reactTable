@@ -5,7 +5,6 @@ import configureStore from 'redux-mock-store';
 import { useGetOneRequest } from '../GetOneRequest';
 import { initialState, loadOneRequestMock } from '../../redux/mockData';
 
-// import { getStarWars } from './base-fetch';
 const storeWithItem = { ...initialState, fullRequestInfo: { [loadOneRequestMock.id]: { ...loadOneRequestMock.data } } };
 
 function HookWrapper(props) {

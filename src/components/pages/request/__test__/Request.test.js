@@ -6,7 +6,7 @@ import Spinner from '../../../spinner-cs/Spinner';
 import Table from '../../../table/Table';
 import Request from '../Request';
 import ReturnToListButton from '../../../buttons/LinkButton';
-import { initialState } from '../../../../redux/mockData';
+import { initialState, loadOneRequestMock } from '../../../../redux/mockData';
 import { useGetOneRequest } from '../../../../cusom-hooks/GetOneRequest';
 
 jest.mock('react-router-dom', () => ({
@@ -23,17 +23,7 @@ const setUp = (store) =>
     </Provider>,
   );
 
-const fullRequestInfo = {
-  2: {
-    headerData: [
-      { key: 'purpose', header: 'Purpose' },
-      { key: 'firstName', header: 'First Name' },
-      { key: 'lastName', header: 'Last Name' },
-      { key: 'gender', header: 'Purpose' },
-    ],
-    rowData: [{ id: '2', purpose: 'Job proposition', firstName: 'Innaghfg', lastName: 'vbhnv', gender: 'female' }],
-  },
-};
+const fullRequestInfo = loadOneRequestMock;
 
 describe('Reqest Page', () => {
   const mockStore = configureStore();
@@ -65,11 +55,11 @@ describe('Reqest Page', () => {
   });
 
   it('should render Table', () => {
-    const element = <Table headerData={fullRequestInfo[2].headerData} rowData={fullRequestInfo[2].rowData} />;
+    const element = <Table headerData={fullRequestInfo.data.headerData} rowData={fullRequestInfo.data.rowData} />;
 
     useGetOneRequest.mockReturnValue({
-      headerData: fullRequestInfo[2].headerData,
-      rowData: fullRequestInfo[2].rowData,
+      headerData: fullRequestInfo.data.headerData,
+      rowData: fullRequestInfo.data.rowData,
     });
     const wrapper = setUp(store);
     expect(wrapper.contains(element)).toBeTruthy();
