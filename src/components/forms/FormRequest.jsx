@@ -1,66 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 import { TextInput, Select, SelectItem, RadioButtonGroup, RadioButton, Button } from 'carbon-components-react';
 import { Container, Row, Col } from 'reactstrap';
 import './FormRequest.scss';
 import PropTypes from 'prop-types';
 
-const propTypes = {
-  title: PropTypes.string,
-  initialData: PropTypes.shape({
-    id: PropTypes.string,
-    purpose: PropTypes.string,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    gender: PropTypes.string,
-  }),
-  action: PropTypes.func,
-};
-const defaultProps = {
-  title: null,
-  initialData: { id: '', purpose: '', firstName: '', lastName: '', gender: '' },
-  action: null,
-};
+const selectItemList = [
+  { text: 'Job proposition', value: 'Job proposition' },
+  { text: 'Review', value: 'Review' },
+  { text: 'Another', value: 'Another' },
+];
 
 const FormRequest = (props) => {
   const { title, initialData, action } = props;
-  const formData = initialData;
+  const [formData, setFormData] = useState({ initialData });
   const [isValid, setIsValid] = useState(false);
-
-  const onSubmit = async (values, form) => {
+  const onSubmit = (values, form) => {
     action(values, form);
   };
 
+  useEffect(() => {
+    setFormData(initialData);
+  }, [initialData]);
+
   return (
     <Container className='form'>
-      {title ? <h2 className='form__title'>{title}</h2> : <></>}
+      {title && <h2 className='form__title'>{title}</h2>}
       <Form
         onSubmit={onSubmit}
         initialValues={formData}
         validate={(values) => {
-          const errors = {};
           if (values.lastName && values.firstName && values.gender && values.purpose) {
             setIsValid(true);
           } else {
             setIsValid(false);
           }
-          if (!values.firstName) {
-            errors.firstName = 'Required';
-          }
-          if (!values.lastName) {
-            errors.lastName = 'Required';
-          }
-          if (!values.gender) {
-            errors.gender = 'Required';
-          }
-          if (!values.purpose) {
-            errors.purpose = 'Required';
-          }
-
-          return errors;
         }}
         render={({ handleSubmit, form, submitting, pristine, values }) => (
-          <form onSubmit={handleSubmit} className=''>
+          <form onSubmit={handleSubmit} data-testid='form'>
             <Row>
               <Col className='col-md-12'>
                 <Field name='purpose'>
@@ -70,17 +47,14 @@ const FormRequest = (props) => {
                         {...input}
                         required
                         id='select-1'
+                        data-testid='purpose-select'
                         invalidText='This is an invalid error message.'
                         invalid={meta.error && meta.touched}
                         labelText='Select purpose of the request'>
-                        {values.purpose ? (
-                          <SelectItem text={values.purpose} value={values.purpose} disabled />
-                        ) : (
-                          <SelectItem text='Purpose' value='' disabled />
-                        )}
-                        <SelectItem text='Job proposition' value='Job proposition' />
-                        <SelectItem text='Review' value='Review' />
-                        <SelectItem text='Another' value='Another' />
+                        <SelectItem text={values.purpose || 'Purpose'} value={values.purpose || ''} disabled />
+                        {selectItemList.map((item) => (
+                          <SelectItem text={item.text} key={item.text} value={item.value} />
+                        ))}
                       </Select>
                     </div>
                   )}
@@ -88,9 +62,9 @@ const FormRequest = (props) => {
               </Col>
             </Row>
             <Row>
-              <Field name='firstName'>
-                {({ input, meta }) => (
-                  <Col className='form__field col-sm-6 col-12'>
+              <Col className='form__field col-sm-6 col-12'>
+                <Field name='firstName'>
+                  {({ input, meta }) => (
                     <TextInput
                       {...input}
                       required
@@ -101,12 +75,12 @@ const FormRequest = (props) => {
                       invalid={meta.error && meta.touched}
                       placeholder='First Name'
                     />
-                  </Col>
-                )}
-              </Field>
-              <Field name='lastName'>
-                {({ input, meta }) => (
-                  <Col className='form__field col-sm-6 col-12'>
+                  )}
+                </Field>
+              </Col>
+              <Col className='form__field col-sm-6 col-12'>
+                <Field name='lastName'>
+                  {({ input, meta }) => (
                     <TextInput
                       {...input}
                       required
@@ -117,9 +91,9 @@ const FormRequest = (props) => {
                       invalidText='Input Last Name.'
                       placeholder='Last Name'
                     />
-                  </Col>
-                )}
-              </Field>
+                  )}
+                </Field>
+              </Col>
             </Row>
             <Row>
               <Col>
@@ -145,13 +119,12 @@ const FormRequest = (props) => {
                 </Field>
               </Col>
             </Row>
-
             <Row className='justify-content-center'>
               <Col className='d-flex form__field'>
                 <Button
                   kind={!isValid ? 'danger--tertiary' : 'tertiary'}
                   type='submit'
-                  className={`form__submit-btn ${!isValid ? 'button--disabled bx--btn--danger--tertiary' : ''}`}>
+                  className={`form__submit-btn ${!isValid && 'button--disabled bx--btn--danger--tertiary'}`}>
                   {!isValid ? 'Disabled' : 'Submit'}
                 </Button>
               </Col>
@@ -160,7 +133,7 @@ const FormRequest = (props) => {
                   kind={submitting || pristine ? 'danger--tertiary' : 'tertiary'}
                   disabled={submitting || pristine}
                   className={`form__reset-btn ${
-                    submitting || pristine ? 'button--disabled bx--btn--danger--tertiary' : ''
+                    (submitting || pristine) && 'button--disabled bx--btn--danger--tertiary'
                   }`}
                   onClick={form.reset}
                   type='button'>
@@ -175,7 +148,21 @@ const FormRequest = (props) => {
   );
 };
 
-FormRequest.propTypes = propTypes;
-FormRequest.defaultProps = defaultProps;
+FormRequest.propTypes = {
+  title: PropTypes.string,
+  initialData: PropTypes.shape({
+    id: PropTypes.string,
+    purpose: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    gender: PropTypes.string,
+  }),
+  action: PropTypes.func,
+};
+FormRequest.defaultProps = {
+  title: null,
+  initialData: { id: '', purpose: '', firstName: '', lastName: '', gender: '' },
+  action: null,
+};
 
 export default FormRequest;

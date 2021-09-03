@@ -18,26 +18,7 @@ import {
 } from 'carbon-components-react';
 import { deleteOneRequest, deleteOneRequestReset } from '../../redux/actions/index';
 import Modal from '../modal/Modal';
-import Notice from '../modal/Notice';
 import SpinnerCS from '../spinner-cs/Spinner';
-
-const propTypes = {
-  headerData: PropTypes.arrayOf(PropTypes.shape({ key: PropTypes.string, header: PropTypes.string })),
-  rowData: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      firstName: PropTypes.string,
-      purpose: PropTypes.string,
-    }),
-  ),
-};
-const defaultProps = {
-  headerData: [
-    { key: 'purpose', header: 'Purpose' },
-    { key: 'firstName', header: 'First Name' },
-  ],
-  rowData: [{ id: '', firstName: '', purpose: '' }],
-};
 
 function TableRequests(props) {
   const dispatch = useDispatch();
@@ -53,25 +34,17 @@ function TableRequests(props) {
     setDeleting({ status: 'working', id });
     dispatch(deleteOneRequest(id));
   };
+  const reset = () => {
+    dispatch(deleteOneRequestReset());
+    setDeleting({ status: false, id: 0 });
+  };
   useEffect(() => {
-    let reset = 0;
+    let callReset = 0;
+    setDeleting({ status, id: 0 });
+    callReset = setTimeout(reset, 5000);
 
-    if (status === 'resolve') {
-      setDeleting({ status: 'success', id: 0 });
-      reset = setTimeout(() => {
-        dispatch(deleteOneRequestReset());
-        setDeleting({ status: false, id: 0 });
-      }, 5000);
-    }
-    if (status === 'reject') {
-      setDeleting({ status: 'reject', id: 0 });
-      reset = setTimeout(() => {
-        dispatch(deleteOneRequestReset());
-        setDeleting({ status: false, id: 0 });
-      }, 5000);
-    }
     return () => {
-      clearTimeout(reset);
+      clearTimeout(callReset);
     };
   }, [status]);
 
@@ -86,13 +59,7 @@ function TableRequests(props) {
                   tabIndex={getBatchActionProps().shouldShowBatchActions ? -1 : 0}
                   onChange={onInputChange}
                 />
-                <Modal
-                  type='add'
-                  title='Add request'
-                  buttonLabel='I have a component'
-                  description='hi'
-                  action='Delete'
-                />
+                <Modal type='add' buttonLabel='Add request' description='hi' action='Delete' />
               </TableToolbarContent>
             </TableToolbar>
             <Table {...getTableProps()}>
@@ -122,12 +89,10 @@ function TableRequests(props) {
                           <Modal
                             type='delete'
                             title='Delete'
-                            buttonLabel='I have a component'
                             description='Are you sure you want to go on?'
                             action='Delete'
                             continueAction={() => handleClickDelete(row.id)}
                           />
-
                           <Modal type='edit' title='Edit row' action='Delete' id={row.id} />
                         </TableCell>
                       </>
@@ -139,13 +104,33 @@ function TableRequests(props) {
           </TableContainer>
         )}
       </DataTable>
-      <Notice isShowModal={deleting.status === 'success'} title='Warning' description='Request was deleted' />
-      <Notice isShowModal={deleting.status === 'reject'} title='Error' description='Something was wrong' />
+      <Modal
+        type='notice'
+        isShowModal={deleting.status === 'resolve'}
+        closeAction={reset}
+        title='Warning'
+        description='Request was deleted'
+      />
     </div>
   );
 }
 
-TableRequests.propTypes = propTypes;
-TableRequests.defaultProps = defaultProps;
+TableRequests.propTypes = {
+  headerData: PropTypes.arrayOf(PropTypes.shape({ key: PropTypes.string, header: PropTypes.string })),
+  rowData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      firstName: PropTypes.string,
+      purpose: PropTypes.string,
+    }),
+  ),
+};
+TableRequests.defaultProps = {
+  headerData: [
+    { key: 'purpose', header: 'Purpose' },
+    { key: 'firstName', header: 'First Name' },
+  ],
+  rowData: [{ id: '', firstName: '', purpose: '' }],
+};
 
 export default TableRequests;
